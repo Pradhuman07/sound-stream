@@ -2,7 +2,9 @@
     1. express
     2. mongoose
     3. bcryptjs (for hashing the password)
-______________________________________________________________
+    4. dotenv   (for accessing variables(imagekit credentials and jwt secret key) from .env file)
+_________________________________________________________________________________________________
+
 # Sound Stream Backend Documentation    
 
 • Flow (step by step process to create the application) :- 

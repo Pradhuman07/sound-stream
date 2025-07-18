@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
+import config from "../config/config";
 
 function connectDB(){
-    mongoose.connect("mongodb://localhost:27017/sound-stream")
+    mongoose.connect(config.MONGODB_URL)
     .then(()=>{
         console.log("connected to MongoDB");        
     })
