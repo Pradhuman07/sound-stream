@@ -6,9 +6,7 @@ const router = express.Router();
 router.post('/register', registerUser)      // "/register" & not just "register" // Otherwise error while sending request from frontend , error->Cannot POST /register
 router.post('/login', loginUser)
 
-
 export default router;
-
 
 // Routes are like the paths in your app.
 // They tell the server what to do when someone visits a specific URL.
