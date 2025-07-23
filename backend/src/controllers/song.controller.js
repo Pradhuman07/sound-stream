@@ -2,14 +2,14 @@ import { uploadAudioFileOnImageKit } from '../services/storage.service.js';
 import songModel from '../models/song.model.js';
 
 export async function uploadSong(req, res) {
+
     // console.log(req.file); // req.file contains the file uploaded by the user
-
-    const audioFileFromImageKit = await uploadAudioFileOnImageKit(req.file, req.file.originalname);
-    const { title, artist } = req.body;
-
     // console.log(audioFileFromImageKit);      // contains everything about the uploaded file i.e url + metadata
     // console.log(audioFileFromImageKit.url);  // we only need the url to store in the database
 
+    const audioFileFromImageKit = await uploadAudioFileOnImageKit(req.file, req.file.originalname);
+    const { title, artist } = req.body;
+    
     const song = await songModel.create({
         title: title,
         artist: artist,
