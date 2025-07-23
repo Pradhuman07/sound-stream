@@ -27,3 +27,22 @@ export function uploadAudioFileOnImageKit(file, fileName) {
 
     });
 }
+
+export function uploadPosterFileOnImageKit(file, fileName) {
+    return new Promise((resolve, reject) => {
+        imagekit.upload(
+            {
+                file: file.buffer,
+                fileName: fileName,
+                folder: "sound-stream/posters",
+            },
+            function (error, result) {
+                if (error) {
+                    reject(error);
+                } else {
+                    resolve(result);
+                }
+            }
+        );
+    });
+}

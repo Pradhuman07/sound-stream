@@ -1,19 +1,49 @@
-import { uploadAudioFileOnImageKit } from '../services/storage.service.js';
+import { uploadAudioFileOnImageKit, uploadPosterFileOnImageKit } from '../services/storage.service.js';
 import songModel from '../models/song.model.js';
+
+// export async function uploadSong(req, res) {        // Old version:- Only audio file upload, poster -> default value as provided in the schema/model
+
+//     // console.log(req.file); // req.file contains the file uploaded by the user
+//     // console.log(audioFileFromImageKit);      // contains everything about the uploaded file i.e url + metadata
+//     // console.log(audioFileFromImageKit.url);  // we only need the url to store in the database
+
+//     const audioFileFromImageKit = await uploadAudioFileOnImageKit(req.file, req.file.originalname);
+//     const { title, artist } = req.body;
+
+//     const song = await songModel.create({
+//         title: title,
+//         artist: artist,
+//         audio: audioFileFromImageKit.url
+//     });
+
+//     res.status(201).json({
+//         message: "Song uploaded successfully",
+//         song
+//     })
+// }
+
+// req.file contains the file uploaded by the user
+// "audioFileFromImageKit" contains everything about the uploaded file i.e url + metadata
+// but we only need the url to store in the database, i.e why we use audioFileFromImageKit.url to store in the database
 
 export async function uploadSong(req, res) {
 
-    // console.log(req.file); // req.file contains the file uploaded by the user
-    // console.log(audioFileFromImageKit);      // contains everything about the uploaded file i.e url + metadata
-    // console.log(audioFileFromImageKit.url);  // we only need the url to store in the database
-
-    const audioFileFromImageKit = await uploadAudioFileOnImageKit(req.file, req.file.originalname);
     const { title, artist } = req.body;
-    
+
+    if (!req.files || !req.files.audio || !req.files.poster) {  
+        return res.status(400).json({
+            message: "Both audio and poster files are required"
+        });
+    }
+
+    const audioFileFromImageKit = await uploadAudioFileOnImageKit(req.files.audio[0], req.files.audio[0].originalname);     
+    const posterFileFromImageKit = await uploadPosterFileOnImageKit(req.files.poster[0], req.files.poster[0].originalname);
+
     const song = await songModel.create({
         title: title,
         artist: artist,
-        audio: audioFileFromImageKit.url
+        audio: audioFileFromImageKit.url,
+        poster: posterFileFromImageKit.url
     });
 
     res.status(201).json({
@@ -59,7 +89,7 @@ export async function getSongById(req, res) {
 export async function searchSongs(req, res) {
     const query = req.query.keyword;         // req.query is used to get the query parameters from the URL, so if we hit the endpoint with /search?keyword=love, then req.query.keyword will be 'love'
 
-    // const songs = await songModel.find({
+    // const songs = await songModel.find({     // searching for songs with title only
     //     title: {
     //         $regex: query,   
     //         $options: 'i'    // for case-insensitive search
@@ -69,7 +99,7 @@ export async function searchSongs(req, res) {
     // Note-2: Regex search is very slow (O(n) operation) that is why we uses atlas search for production apps   
     // query is the keyword we are searching for in the songs
 
-    const songs = await songModel.find({
+    const songs = await songModel.find({        // searching for songs with both title and artist
         $or: [
             {
                 title: {

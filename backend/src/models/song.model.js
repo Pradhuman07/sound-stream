@@ -15,7 +15,7 @@ const songSchema = new mongoose.Schema({
     },
     poster: {
         type: String,
-        default: "https://downloadr2.apkmirror.com/wp-content/uploads/2023/05/48/646f71798f43f.png",
+        required: true
     }
 })
 
