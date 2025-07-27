@@ -1,17 +1,36 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { authStart, authSuccess, authFailure } from '../store/authSlice'
+import api from '../config/api'
 import Logo from '../components/Logo'
 
 const Login = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
 
-  const [email, setemail] = useState('')
-  const [password, setpassword] = useState('')
+  const submitHandler = async (e) => {
+    e.preventDefault()
+    setError('')
+    dispatch(authStart())
 
-  const submitHandler = (e) => {
-    e.preventDefault();
-    setemail('')
-    setpassword('')
-    console.log('Login form submitted', 'email:', email, 'password:', password);
+    try {
+      const response = await api.post('/auth/login', {
+        email,
+        password
+      })
+      
+      dispatch(authSuccess(response.data.user))
+      navigate('/')
+    } catch (err) {
+      const errorMessage = err.response?.data?.message || 'Login failed'
+      setError(errorMessage)
+      dispatch(authFailure(errorMessage))
+      setPassword('') // Clear password on error
+    }
   }
 
   return (
@@ -23,17 +42,21 @@ const Login = () => {
 
       {/* Login Form */}
       <div className="w-full max-w-md px-4">
+        
+        <h1 className='text-xl font-bold text-center mb-4'>Welcome Back</h1>
+
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+            {error}
+          </div>
+        )}
 
         <form className="flex flex-col gap-4"
-          onSubmit={(e) => {
-            submitHandler(e)
-          }}>
+          onSubmit={submitHandler}>
 
           <input
             value={email}
-            onChange={(e) => {
-              setemail(e.target.value)
-            }}
+            onChange={(e) => setEmail(e.target.value)}
             required
             type="email"
             placeholder="Email"
@@ -42,9 +65,7 @@ const Login = () => {
 
           <input
             value={password}
-            onChange={(e) => {
-              setpassword(e.target.value)
-            }}
+            onChange={(e) => setPassword(e.target.value)}
             required
             type="password"
             placeholder="Password"
