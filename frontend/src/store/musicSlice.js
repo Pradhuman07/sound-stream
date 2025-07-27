@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
   songs: [
-{ title: 'Ho Hey', artist: 'The Lumineers', image: 'https://images.unsplash.com/photo-1591992326744-e11ed5993bcd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
+    { title: 'Ho Hey', artist: 'The Lumineers', image: 'https://images.unsplash.com/photo-1591992326744-e11ed5993bcd?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
     { title: 'Fix You', artist: 'Coldplay', image: 'https://images.unsplash.com/photo-1525098434707-6ce12d833c63?q=80&w=1921&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
     { title: 'Shape of You', artist: 'Ed Sheeran', image: 'https://images.unsplash.com/photo-1692248796805-59de5e7760d1?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },
     { title: 'Rolling in the Deep', artist: 'Adele', image: 'https://images.unsplash.com/photo-1571706782046-0ffc7fcb055c?q=80&w=2015&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D' },

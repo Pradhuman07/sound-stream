@@ -75,10 +75,16 @@ export async function loginUser(req, res) {
     })
 }
 
-// Mistakes: not using await in userModel.create and userModel.findOne , always use await when dealing with any database operation, since they are asynchronous operations
+export async function logoutUser(req, res) {
+    res.clearCookie("token");  // This clears the token cookie
+    return res.status(200).json({ message: "Logged out successfully" });
+}
+
 
 /*
-bcrypt.hash(password, 10)  ==> Yahaan 10 ka matlab hai — kitni baar password ko ghuma-ghuma ke strong banaya jaye.
+Mistakes: not using await in userModel.create and userModel.findOne , always use await when dealing with any database operation, since they are asynchronous operations
+
+NOTE: bcrypt.hash(password, 10)  ==> Yahaan 10 ka matlab hai — kitni baar password ko ghuma-ghuma ke strong banaya jaye.
 
 Soch le:
 Tu ek password ko lock kar raha hai.

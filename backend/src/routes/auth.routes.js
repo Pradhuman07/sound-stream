@@ -1,10 +1,11 @@
 import express from 'express';
-import {registerUser, loginUser} from '../controllers/auth.controller.js';  // make sure to use {} to import named exports
+import {registerUser, loginUser, logoutUser} from '../controllers/auth.controller.js';  // make sure to use {} to import named exports
 
 const router = express.Router();
 
 router.post('/register', registerUser)      // "/register" & not just "register" // Otherwise error while sending request from frontend , error->Cannot POST /register
 router.post('/login', loginUser)
+router.post('/logout', logoutUser)
 
 export default router;
 
