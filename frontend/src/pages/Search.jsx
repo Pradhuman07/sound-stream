@@ -143,9 +143,9 @@ const Search = () => {
             {/* Song info and controls */}
             <div className="flex items-center mb-2">
               <img src={currentSong.poster} alt="now-playing" className="w-12 h-12 object-cover rounded-md mr-4" />
-              <div className="flex-1">
-                <h3 className="font-medium text-gray-600">{currentSong.title}</h3>
-                <p className="text-sm text-gray-500">{currentSong.artist}</p>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-medium text-gray-600 truncate max-w-[200px]">{currentSong.title}</h3>
+                <p className="text-sm text-gray-500 truncate max-w-[200px]">{currentSong.artist}</p>
               </div>
 
               {/* Control buttons */}
