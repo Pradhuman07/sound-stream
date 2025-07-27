@@ -4,7 +4,10 @@ import { useSelector } from 'react-redux'
 const Header = () => {
     const navigate = useNavigate()
     const { user } = useSelector(state => state.auth)
-    const firstName = user?.name?.split(' ')[0] || 'Guest'
+    // Try to get user from Redux first, then fallback to localStorage
+    const storedUser = localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null
+    const activeUser = user || storedUser
+    const firstName = activeUser?.name?.split(' ')[0] || 'Guest'
 
     return (
         <header className="fixed inset-x-0 top-0 px-5 lg:px-0 py-3 md:py-4 shadow-lg z-10 rounded-b-2xl bg-gray-100 backdrop-blur-sm">

@@ -23,6 +23,9 @@ const Login = () => {
         password
       })
       
+      // Store user data in localStorage
+      localStorage.setItem('user', JSON.stringify(response.data.user))
+      
       dispatch(authSuccess(response.data.user))
       navigate('/welcome')
     } catch (err) {

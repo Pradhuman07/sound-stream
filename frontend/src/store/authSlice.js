@@ -1,10 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    user: null,                 // Stores user data after login/register
-    isAuthenticated: false,     // Tracks authentication status
-    loading: false,             // For loading states during API calls
-    error: null                 // Stores any error messages
+    user: localStorage.getItem('user') ? JSON.parse(localStorage.getItem('user')) : null,
+    isAuthenticated: !!localStorage.getItem('user'),
+    loading: false,
+    error: null
 }
 
 const authSlice = createSlice({

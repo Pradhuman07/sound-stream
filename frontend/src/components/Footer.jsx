@@ -1,12 +1,15 @@
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logout } from '../store/authSlice'     // for handling logout action
+import { resetMusicState } from '../store/musicSlice'  // for resetting music state
 import api from '../config/api'                 // for making API calls
+import { useAudio } from '../context/AudioContext'  // for accessing audio controls
 
 const Footer = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const location = useLocation()
+  const { audioRef } = useAudio()
 
   return (
     <footer className="fixed bottom-0 left-0 right-0 bg-white px-4 py-2 md:px-4 md:py-2 border-t border-gray-300">
@@ -46,7 +49,19 @@ const Footer = () => {
           if (window.confirm('Do you want to log out?')) {
             try {
               await api.post('/auth/logout');         // This calls the backend's logout endpoint which clears the cookie
-              dispatch(logout());                     // Updates the Redux store by dispatching the logout action
+              localStorage.removeItem('user');        // Clear user data from localStorage
+              
+              // Stop audio playback if any
+              if (audioRef.current) {
+                audioRef.current.pause();
+                audioRef.current.currentTime = 0;
+              }
+              
+              // Reset music state in Redux
+              dispatch(resetMusicState());
+              
+              // Logout and redirect
+              dispatch(logout());
               navigate('/login');                     // Finally redirects to the login page
             }
             catch (error) {

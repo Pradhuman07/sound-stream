@@ -41,6 +41,13 @@ export const musicSlice = createSlice({
     togglePlayPause: (state) => {
       state.isPlaying = !state.isPlaying
     },
+    resetMusicState: (state) => {
+      state.currentSong = null
+      state.isPlaying = false
+      state.songs = []
+      state.loading = false
+      state.error = null
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -60,5 +67,5 @@ export const musicSlice = createSlice({
   }
 })
 
-export const { setCurrentSong, togglePlayPause } = musicSlice.actions
+export const { setCurrentSong, togglePlayPause, resetMusicState } = musicSlice.actions
 export default musicSlice.reducer
