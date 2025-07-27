@@ -8,21 +8,24 @@ import UploadMusic from './pages/UploadMusic'
 import Welcome from './pages/Welcome'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
+import { AudioProvider } from './context/AudioContext'
 
 const App = () => {
   return (
     <Provider store={store}>
-      <Router>
-        <Routes>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/welcome" element={<Welcome />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/search" element={<Search />} />
-          <Route path="/upload-music" element={<UploadMusic />} />
-        </Routes>
-      </Router>
+      <AudioProvider>
+        <Router>
+          <Routes>
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/welcome" element={<Welcome />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/search" element={<Search />} />
+            <Route path="/upload-music" element={<UploadMusic />} />
+          </Routes>
+        </Router>
+      </AudioProvider>
     </Provider>
   )
 }

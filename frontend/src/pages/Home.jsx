@@ -1,8 +1,9 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { useSelector, useDispatch } from 'react-redux'
 import { setCurrentSong, togglePlayPause, fetchSongs } from '../store/musicSlice'
+import { useAudio } from '../context/AudioContext'
 
 // Define keyframes for the playing animation
 const style = document.createElement('style');
@@ -17,33 +18,14 @@ document.head.appendChild(style);
 const Home = () => {
   const dispatch = useDispatch()
   const { songs, currentSong, isPlaying, loading, error } = useSelector(state => state.music)
-  const [currentTime, setCurrentTime] = useState(0)
-  const [duration, setDuration] = useState(0)
-  const audioRef = useRef(null)
-
-  // Format time in MM:SS
-  const formatTime = (time) => {
-    const minutes = Math.floor(time / 60)
-    const seconds = Math.floor(time % 60)
-    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`
-  }
-
-  // Handle time update
-  const handleTimeUpdate = () => {
-    setCurrentTime(audioRef.current.currentTime)
-  }
-
-  // Handle duration change
-  const handleDurationChange = () => {
-    setDuration(audioRef.current.duration)
-  }
-
-  // Handle seeking
-  const handleSeek = (e) => {
-    const time = e.target.value
-    audioRef.current.currentTime = time
-    setCurrentTime(time)
-  }
+  const { 
+    audioRef,
+    currentTime,
+    duration,
+    formatTime,
+    handleSeek,
+    handlePlayPause
+  } = useAudio()
 
   // Handle track navigation
   const handleTrackChange = (direction) => {
@@ -74,26 +56,16 @@ const Home = () => {
   const handleSongClick = (song) => {
     // If it's the same song that's currently selected
     if (currentSong && currentSong._id === song._id) {
-      // Just toggle play/pause
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      dispatch(togglePlayPause());
+      handlePlayPause();
     } else {
       // If it's a different song
-      if (currentSong) {
-        // Stop current song if one is playing
+      if (currentSong && isPlaying) {
         audioRef.current.pause();
       }
-      // Set new song and start playing
       dispatch(setCurrentSong(song));
       setTimeout(() => {
-        if (audioRef.current) {
-          audioRef.current.play();
-          if (!isPlaying) dispatch(togglePlayPause());
-        }
+        if (!isPlaying) dispatch(togglePlayPause());
+        audioRef.current.play();
       }, 0);
     }
   }
@@ -189,14 +161,7 @@ const Home = () => {
                 
                 {/* Play/Pause */}
                 <button 
-                  onClick={() => {
-                    if (isPlaying) {
-                      audioRef.current.pause();
-                    } else {
-                      audioRef.current.play();
-                    }
-                    dispatch(togglePlayPause());
-                  }} 
+                  onClick={handlePlayPause}
                   className="text-gray-600 cursor-pointer hover:text-blue-400  active:text-blue-300 active:scale-90 transition-all duration-150"
                   title={isPlaying ? "Pause" : "Play"}
                 >
@@ -257,14 +222,7 @@ const Home = () => {
               <span>{formatTime(duration)}</span>
             </div>
 
-            <audio 
-              ref={audioRef}
-              src={currentSong.audio}
-              className="hidden"
-              onTimeUpdate={handleTimeUpdate}
-              onDurationChange={handleDurationChange}
-              onEnded={() => dispatch(togglePlayPause())}
-            />
+            {/* Audio element is now managed by AudioContext */}
           </div>
         </div>
       )}
