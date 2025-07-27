@@ -1,6 +1,10 @@
 import { useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { logout } from '../store/authSlice'     // for handling logout action
+import api from '../config/api'                 // for making API calls
 
 const Footer = () => {
+  const dispatch = useDispatch()
   const navigate = useNavigate()
 
   return (
@@ -26,10 +30,16 @@ const Footer = () => {
           </svg>
         </button>
 
-        <button className="p-2 cursor-pointer" onClick={() => {
+        <button className="p-2 cursor-pointer" onClick={async () => {
           if (window.confirm('Do you want to log out?')) {
-            localStorage.removeItem('token');
-            navigate('/login');
+            try {
+              await api.post('/auth/logout');         // This calls the backend's logout endpoint which clears the cookie
+              dispatch(logout());                     // Updates the Redux store by dispatching the logout action
+              navigate('/login');                     // Finally redirects to the login page
+            }
+            catch (error) {
+              console.error('Logout failed:', error);
+            }
           }
         }}>
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -42,4 +52,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default Footer;
