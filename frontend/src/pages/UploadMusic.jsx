@@ -72,8 +72,8 @@ const UploadMusic = () => {
         {/* Back Button and Upload Music text */}
 
         <div className="w-full max-w-md mb-36 flex">
-          <button onClick={() => navigate(-1)} className="text-2xl cursor-pointer"><IoArrowBackOutline /></button>
-          <h1 className="text-2xl font-semibold mx-auto">Upload Music</h1>
+          <button onClick={() => navigate(-1)} className="text-2xl cursor-pointer text-indigo-300"><IoArrowBackOutline /></button>
+          <h1 className="text-2xl font-semibold mx-auto bg-gradient-to-r from-indigo-400 to-blue-300 bg-clip-text text-transparent">Upload Music</h1>
         </div>
 
         {/* Upload Form */}
@@ -107,7 +107,7 @@ const UploadMusic = () => {
                   className="hidden"
                   required
                 />
-                <div className="w-full p-3 text-center font-medium bg-gray-100 rounded-4xl cursor-pointer hover:bg-gray-200">
+                <div className="w-full p-3 text-center font-medium bg-gray-100 text-gray-600 rounded-4xl cursor-pointer hover:bg-gray-200">
                   Upload Audio File
                 </div>
               </label>
@@ -120,7 +120,7 @@ const UploadMusic = () => {
                   className="hidden"
                   required
                 />
-                <div className="w-full p-3 text-center font-medium bg-gray-100 rounded-4xl cursor-pointer hover:bg-gray-200">
+                <div className="w-full p-3 text-center font-medium bg-gray-100 text-gray-600 rounded-4xl cursor-pointer hover:bg-gray-200">
                   Upload Image File
                 </div>
               </label>
@@ -129,17 +129,17 @@ const UploadMusic = () => {
 
             {/* Display selected file names */}
             {audioFile && (
-              <p className="text-sm text-gray-600">Audio: {audioFile.name}</p>
+              <p className="text-sm text-gray-400 ml-6">Audio: {audioFile.name}</p>
             )}
             {imageFile && (
-              <p className="text-sm text-gray-600">Image: {imageFile.name}</p>
+              <p className="text-sm text-gray-400 ml-6">Image: {imageFile.name}</p>
             )}
 
             {/* Submit Button */}
             <button
               type="submit"
               disabled={isUploading}
-              className={`w-full p-3 text-white bg-black rounded-full ${
+              className={`w-full p-3 text-white bg-indigo-300 rounded-full ${
                 isUploading 
                   ? 'opacity-75 cursor-not-allowed' 
                   : 'hover:bg-gray-900 cursor-pointer'
