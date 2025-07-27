@@ -163,7 +163,7 @@ const Home = () => {
 
       {/* Current song playing */}
       {currentSong && (
-        <div className="fixed bottom-14 md:bottom-14 left-0 right-0 bg-indigo-100 border-t border-gray-300 py-2 px-4 rounded-t-2xl">
+        <div className="fixed bottom-14 md:bottom-14 left-0 right-0 bg-indigo-100 border-t border-gray-300 py-2 px-4 rounded-t-2xl lg:rounded-t-4xl">
           <div className="flex flex-col max-w-screen-xl mx-auto">
             {/* Song info and controls */}
             <div className="flex items-center mb-2">
@@ -237,7 +237,7 @@ const Home = () => {
                   value={currentTime}
                   onChange={handleSeek}
                   style={{
-                    background: `linear-gradient(to right, #93c5fd ${(currentTime / duration) * 100}%, #e5e7eb 0%)`
+                    background: `linear-gradient(to right, #93c5fd ${(currentTime / duration) * 100}%, #d1d5db  0%)`
                   }}
                   className="w-full h-1 rounded-lg appearance-none cursor-pointer 
                   [&::-webkit-slider-thumb]:appearance-none 
