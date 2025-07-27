@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import { useSelector, useDispatch } from 'react-redux'
@@ -9,6 +9,7 @@ const Search = () => {
   const dispatch = useDispatch()
   const { songs, currentSong, isPlaying } = useSelector(state => state.music)
   const [searchQuery, setSearchQuery] = useState('')
+  const searchInputRef = useRef(null)
   const { 
     audioRef,
     currentTime,
@@ -17,6 +18,13 @@ const Search = () => {
     handleSeek,
     handlePlayPause
   } = useAudio()
+
+  // Focus search input on component mount
+  useEffect(() => {
+    if (searchInputRef.current) {
+      searchInputRef.current.focus()
+    }
+  }, [])
 
   // Handle track navigation
   const handleTrackChange = (direction) => {
@@ -71,6 +79,7 @@ const Search = () => {
         <div className="mb-6">
           <div className="relative">
             <input
+              ref={searchInputRef}
               type="text"
               placeholder="Find in music"
               value={searchQuery}
