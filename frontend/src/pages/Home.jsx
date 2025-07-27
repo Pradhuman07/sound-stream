@@ -163,7 +163,7 @@ const Home = () => {
 
       {/* Current song playing */}
       {currentSong && (
-        <div className="fixed bottom-14 md:bottom-14 left-0 right-0 bg-indigo-100 border-t border-gray-300 py-2 px-4 rounded-t-2xl lg:rounded-t-4xl">
+        <div className="fixed bottom-14 md:bottom-14 left-0 right-0 bg-indigo-100 border-t border-gray-300 py-2 px-4 rounded-t-2xl lg:rounded-t-3xl">
           <div className="flex flex-col max-w-screen-xl mx-auto">
             {/* Song info and controls */}
             <div className="flex items-center mb-2">
