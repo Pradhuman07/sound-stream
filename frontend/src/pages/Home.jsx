@@ -39,19 +39,64 @@ const Home = () => {
     }
 
     const nextSong = songs[nextIndex];
+    
+    // Update the song in store
     dispatch(setCurrentSong(nextSong));
-    if (isPlaying) {
-      setTimeout(() => {
-        if (audioRef.current) {
-          audioRef.current.play();
-        }
-      }, 0);
+    
+    // Ensure we're in playing state
+    if (!isPlaying) {
+      dispatch(togglePlayPause());
     }
+    
+    // Play the next song after a small delay
+    setTimeout(() => {
+      if (audioRef.current) {
+        audioRef.current.play().catch(error => {
+          console.error('Error playing next track:', error);
+        });
+      }
+    }, 0);
   }
 
   useEffect(() => {
     dispatch(fetchSongs())
   }, [dispatch])
+
+  // Add event listener for song end
+  useEffect(() => {
+    const handleSongEnd = () => {
+      const currentIndex = songs.findIndex(song => song._id === currentSong._id);
+      const nextIndex = currentIndex + 1 >= songs.length ? 0 : currentIndex + 1;
+      const nextSong = songs[nextIndex];
+      
+      // Update the song in store
+      dispatch(setCurrentSong(nextSong));
+      
+      // Ensure we're in playing state
+      if (!isPlaying) {
+        dispatch(togglePlayPause());
+      }
+      
+      // Play the next song after a small delay
+      setTimeout(() => {
+        if (audioRef.current) {
+          audioRef.current.play().catch(error => {
+            console.error('Error auto-playing next song:', error);
+          });
+        }
+      }, 0);
+    };
+
+    if (audioRef.current) {
+      audioRef.current.addEventListener('ended', handleSongEnd);
+    }
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.removeEventListener('ended', handleSongEnd);
+      }
+    };
+  }, [audioRef, currentSong, songs, isPlaying, dispatch]);
 
   const handleSongClick = (song) => {
     // If it's the same song that's currently selected

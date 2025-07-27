@@ -19,6 +19,12 @@ const Search = () => {
     handlePlayPause
   } = useAudio()
 
+  // Define filteredSongs early
+  const filteredSongs = songs.filter(song =>
+    song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    song.artist.toLowerCase().includes(searchQuery.toLowerCase())
+  )
+
   // Focus search input on component mount
   useEffect(() => {
     if (searchInputRef.current) {
@@ -26,32 +32,85 @@ const Search = () => {
     }
   }, [])
 
+  // Add event listener for song end
+  useEffect(() => {
+    const handleSongEnd = () => {
+      if (filteredSongs.length === 0) return;
+
+      const currentIndex = filteredSongs.findIndex(song => song._id === currentSong._id);
+      // If current song isn't in filtered list, start from beginning
+      if (currentIndex === -1) {
+        const nextSong = filteredSongs[0];
+        dispatch(setCurrentSong(nextSong));
+      } else {
+        const nextIndex = currentIndex + 1 >= filteredSongs.length ? 0 : currentIndex + 1;
+        const nextSong = filteredSongs[nextIndex];
+        dispatch(setCurrentSong(nextSong));
+      }
+      
+      // Ensure we're in playing state
+      if (!isPlaying) {
+        dispatch(togglePlayPause());
+      }
+      
+      // Play the next song after a small delay
+      setTimeout(() => {
+        if (audioRef.current) {
+          audioRef.current.play().catch(error => {
+            console.error('Error auto-playing next song:', error);
+          });
+        }
+      }, 0);
+    };
+
+    if (audioRef.current) {
+      audioRef.current.addEventListener('ended', handleSongEnd);
+    }
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.removeEventListener('ended', handleSongEnd);
+      }
+    };
+  }, [audioRef, currentSong, filteredSongs, isPlaying, dispatch]);
+
   // Handle track navigation
   const handleTrackChange = (direction) => {
+    if (filteredSongs.length === 0) return;
+
     const currentIndex = filteredSongs.findIndex(song => song._id === currentSong._id);
     let nextIndex;
     
-    if (direction === 'next') {
-      nextIndex = currentIndex + 1 >= filteredSongs.length ? 0 : currentIndex + 1;
+    // If current song isn't in filtered list, start from beginning
+    if (currentIndex === -1) {
+      nextIndex = 0;
     } else {
-      nextIndex = currentIndex - 1 < 0 ? filteredSongs.length - 1 : currentIndex - 1;
+      if (direction === 'next') {
+        nextIndex = currentIndex + 1 >= filteredSongs.length ? 0 : currentIndex + 1;
+      } else {
+        nextIndex = currentIndex - 1 < 0 ? filteredSongs.length - 1 : currentIndex - 1;
+      }
     }
 
     const nextSong = filteredSongs[nextIndex];
+    
+    // Update the song in store
     dispatch(setCurrentSong(nextSong));
-    if (isPlaying) {
-      setTimeout(() => {
-        if (audioRef.current) {
-          audioRef.current.play();
-        }
-      }, 0);
+    
+    // Ensure we're in playing state
+    if (!isPlaying) {
+      dispatch(togglePlayPause());
     }
+    
+    // Play the next song after a small delay
+    setTimeout(() => {
+      if (audioRef.current) {
+        audioRef.current.play().catch(error => {
+          console.error('Error playing next track:', error);
+        });
+      }
+    }, 0);
   }
-
-  const filteredSongs = songs.filter(song =>
-    song.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    song.artist.toLowerCase().includes(searchQuery.toLowerCase())
-  )
 
   const handleSongClick = (song) => {
     // If it's the same song that's currently selected

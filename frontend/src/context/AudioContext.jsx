@@ -66,7 +66,6 @@ export const AudioProvider = ({ children }) => {
           className="hidden"
           onTimeUpdate={handleTimeUpdate}
           onDurationChange={handleDurationChange}
-          onEnded={() => dispatch(togglePlayPause())}
         />
       )}
     </AudioContext.Provider>
