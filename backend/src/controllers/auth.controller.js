@@ -1,30 +1,28 @@
 import { createUser, findUser } from "../dao/user.dao.js";
 import bcrypt from "bcryptjs"                                           // bcryptjs is a library/package for hashing passwords, it is used to encrypt the password before storing it in the database, so that even if the database is compromised, the passwords are not easily readable
-import jwt from "jsonwebtoken";                                    // jsonwebtoken is a library/package for creating and verifying JSON Web Tokens (JWT), it is used to create a token after successful login, which can be used for authentication in subsequent requests
+import jwt from "jsonwebtoken";                                         // jsonwebtoken is a library/package for creating and verifying JSON Web Tokens (JWT), it is used to create a token after successful login, which can be used for authentication in subsequent requests
 import config from "../config/config.js";
 
-export async function registerUser(req, res) {                            // named export, therefore import it using {} brackets
+export async function registerUser(req, res) {                            
 
-    const {name, email, password } = req.body;                               // by default express req.body se data nhi padh skta , i.e why we use "app.use(express.json())" middle ware, written in app.js file
+    const { name, email, password } = req.body;                        
 
-    // First check, does this email already exists
+    if (!name || !email || !password) {                                  
+        return res.status(400).json({
+            message: "All fields are required"
+        });
+    }
 
-    const userExist = await findUser({ email: email });           // FIXED: Added await to properly check if user exists
-
-    // i) If user already exists, then we cannot create a new user , thus we return an error response
+    const userExist = await findUser({ email: email });                    // FIXED: Added await to properly check if user exists
 
     if (userExist) {                                                       // if({}) -> true, if(null) -> false
         return res.status(400).json({ message: "User already exists" });   // 400 -> Bad Request, i.e user already exists
     }
 
-    // ii) If user does not exist, then we can create a new user (using 3 steps)
+    const hash = await bcrypt.hash(password, 10);                           // salt rounds -> 10 (10 level lock, 2^10 = 1024 processing)
 
-    // 1. Hash the password, 2. Create a new user using userModel(with email and hash password), 3. Return success response
-
-    const hash = await bcrypt.hash(password, 10);                        // salt rounds -> 10 (10 level lock, 2^10 = 1024 processing)
-
-    const user = await createUser({               // FIXED: Added await to properly create the user
-        name : name,
+    const user = await createUser({                                         // FIXED: Added await to properly create the user
+        name: name,
         email: email,
         password: hash
     })

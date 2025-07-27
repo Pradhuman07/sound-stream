@@ -1,18 +1,41 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { authStart, authSuccess, authFailure } from '../store/authSlice'
+import api from '../config/api'
 import Logo from '../components/Logo'
 
 const Register = () => {
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
 
-  const submitHandler = (e) => {
+  const submitHandler = async (e) => {
     e.preventDefault()
-    setName('')
-    setEmail('')
-    setPassword('')
-    console.log('Register form submitted', 'name:', name, 'email:', email, 'password:', password)
+    setError('')
+    dispatch(authStart())
+    
+    try {
+      const response = await api.post('/auth/register', {
+        name,
+        email,
+        password
+      });
+      
+      dispatch(authSuccess(response.data.user))
+      navigate('/')
+    } catch (err) {
+      const errorMessage = err.response?.data?.message || 'Registration failed'
+      setError(errorMessage)
+      dispatch(authFailure(errorMessage))
+      
+      // Keep the form data in case user wants to try again
+      // Only clear password for security
+      setPassword('')
+    }
   }
 
   return (
@@ -26,6 +49,12 @@ const Register = () => {
       <div className="w-full max-w-md px-4">
 
         <h1 className='text-xl font-bold text-center mb-4'>Create new Account</h1>
+
+        {error && (
+          <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
+            {error}
+          </div>
+        )}
 
         <form
           className="flex flex-col gap-4"
