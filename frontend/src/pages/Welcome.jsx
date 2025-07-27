@@ -22,7 +22,7 @@ const Welcome = () => {
     // 2. Data is loaded (we have user and songs data)
     
     useEffect(() => {
-        if (minTimeElapsed && user && songs.length > 0) {
+        if (minTimeElapsed) {   // && user && songs.length > 0
             navigate('/')
         }
     }, [minTimeElapsed, user, songs, navigate])

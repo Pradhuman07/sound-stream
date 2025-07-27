@@ -7,7 +7,7 @@ export async function authMiddleware(req, res, next) {          // This middlewa
 
     if (!token) {                                               // If token is not present, return 401 Unauthorized status code with a message.
         return res.status(401).json({
-            message: 'Unauthorized: No token found in cookies'
+            message: 'Unauthorized: Please login'
         });
     }
 
