@@ -23,11 +23,16 @@ export const fetchSongs = createAsyncThunk(
   }
 )
 
+// Get last played song from localStorage if available
+const lastPlayedSong = localStorage.getItem('lastPlayedSong') 
+  ? JSON.parse(localStorage.getItem('lastPlayedSong')) 
+  : null;
+
 const initialState = {
   songs: [],
   loading: false,
   error: null,
-  currentSong: null,
+  currentSong: lastPlayedSong, // Initialize with last played song
   isPlaying: false
 }
 
@@ -37,6 +42,10 @@ export const musicSlice = createSlice({
   reducers: {
     setCurrentSong: (state, action) => {
       state.currentSong = action.payload
+      // Save to localStorage whenever current song changes
+      if (action.payload) {
+        localStorage.setItem('lastPlayedSong', JSON.stringify(action.payload))
+      }
     },
     togglePlayPause: (state) => {
       state.isPlaying = !state.isPlaying
@@ -47,6 +56,8 @@ export const musicSlice = createSlice({
       state.songs = []
       state.loading = false
       state.error = null
+      // Clear last played song from localStorage
+      localStorage.removeItem('lastPlayedSong')
     },
   },
   extraReducers: (builder) => {
