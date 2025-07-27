@@ -2,30 +2,56 @@ import React, { useState } from 'react'
 import Footer from '../components/Footer'
 import { IoArrowBackOutline } from "react-icons/io5";
 import { useNavigate } from 'react-router-dom'
+import api from '../config/api'
+import { useDispatch } from 'react-redux'
+import { fetchSongs } from '../store/musicSlice'
 
 const UploadMusic = () => {
-
   const navigate = useNavigate()
+  const dispatch = useDispatch()
 
   const [songTitle, setSongTitle] = useState('')
   const [artistName, setArtistName] = useState('')
   const [audioFile, setAudioFile] = useState(null)
   const [imageFile, setImageFile] = useState(null)
+  const [isUploading, setIsUploading] = useState(false)
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // Console details
-    console.log('Form submitted:', {
-      songTitle,
-      artistName,
-      audioFile,
-      imageFile
-    })
-    // Reset form
-    setSongTitle('')
-    setArtistName('')
-    setAudioFile(null)
-    setImageFile(null)
+    setIsUploading(true)
+    
+    try {
+      const formData = new FormData()
+      formData.append('title', songTitle)
+      formData.append('artist', artistName)
+      formData.append('audio', audioFile)
+      formData.append('poster', imageFile)
+
+      await api.post('/song/upload', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        },
+        onUploadProgress: (progressEvent) => {
+          const percentCompleted = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+          console.log('Upload Progress:', percentCompleted + '%');
+        }
+      })
+
+      // Refresh songs list
+      dispatch(fetchSongs())
+
+      // Reset form
+      setSongTitle('')
+      setArtistName('')
+      setAudioFile(null)
+      setImageFile(null)
+
+      // Navigate back to home
+      navigate('/')
+    } catch (err) {
+      alert(err.response?.data?.message || 'Failed to upload song')
+      setIsUploading(false)
+    }
   }
 
   const handleAudioUpload = (e) => {
@@ -112,9 +138,21 @@ const UploadMusic = () => {
             {/* Submit Button */}
             <button
               type="submit"
-              className="w-full p-3 text-white bg-black rounded-full hover:bg-gray-900 cursor-pointer"
+              disabled={isUploading}
+              className={`w-full p-3 text-white bg-black rounded-full ${
+                isUploading 
+                  ? 'opacity-75 cursor-not-allowed' 
+                  : 'hover:bg-gray-900 cursor-pointer'
+              }`}
             >
-              Upload Music
+              {isUploading ? (
+                <div className="flex items-center justify-center gap-2">
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                  <span>Uploading...</span>
+                </div>
+              ) : (
+                'Upload Music'
+              )}
             </button>
 
           </form>
