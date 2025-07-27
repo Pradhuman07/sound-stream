@@ -11,17 +11,16 @@ const Welcome = () => {
     const [minTimeElapsed, setMinTimeElapsed] = useState(false)
 
     useEffect(() => {
-        // Set minimum display time of 3 seconds
-        const timer = setTimeout(() => {
+        const timer = setTimeout(() => {        // Set minimum display time of 3 seconds
             setMinTimeElapsed(true)
         }, 3000)
-
         return () => clearTimeout(timer)
     }, [])
 
     // Navigate when both conditions are met:
-    // 1. Minimum display time has elapsed (3s)
+    // 1. Minimum display time has elapsed (3s)         // i.e minTimeElapsed is true
     // 2. Data is loaded (we have user and songs data)
+    
     useEffect(() => {
         if (minTimeElapsed && user && songs.length > 0) {
             navigate('/')
@@ -36,7 +35,7 @@ const Welcome = () => {
                     {isNewUser ? 'Welcome, ' : 'Welcome back, '}
                     <span className="text-blue-400">{user?.name?.split(' ')[0]}!</span>
                 </h1>
-                
+
                 {/* App Logo and Name */}
                 <div className="my-8 animate-scale-in">
                     <div className="flex items-center justify-center gap-3 mb-2">

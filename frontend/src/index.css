@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+
+/*Animations for Welcome Page*/
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
