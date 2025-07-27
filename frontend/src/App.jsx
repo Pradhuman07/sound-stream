@@ -9,6 +9,7 @@ import Welcome from './pages/Welcome'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
 import { AudioProvider } from './context/AudioContext'
+import PrivateRoute from './components/PrivateRoute'
 
 const App = () => {
   return (
@@ -16,13 +17,36 @@ const App = () => {
       <AudioProvider>
         <Router>
           <Routes>
+            {/* Public Routes */}
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
-            <Route path="/welcome" element={<Welcome />} />
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/search" element={<Search />} />
-            <Route path="/upload-music" element={<UploadMusic />} />
+            
+            {/* Protected Routes */}
+            <Route path="/welcome" element={
+              <PrivateRoute>
+                <Welcome />
+              </PrivateRoute>
+            } />
+            <Route path="/" element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            } />
+            <Route path="/home" element={
+              <PrivateRoute>
+                <Home />
+              </PrivateRoute>
+            } />
+            <Route path="/search" element={
+              <PrivateRoute>
+                <Search />
+              </PrivateRoute>
+            } />
+            <Route path="/upload-music" element={
+              <PrivateRoute>
+                <UploadMusic />
+              </PrivateRoute>
+            } />
           </Routes>
         </Router>
       </AudioProvider>
