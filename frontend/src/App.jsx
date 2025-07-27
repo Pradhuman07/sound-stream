@@ -5,6 +5,7 @@ import Login from './pages/Login'
 import Home from './pages/Home'
 import Search from './pages/Search'
 import UploadMusic from './pages/UploadMusic'
+import Welcome from './pages/Welcome'
 import { Provider } from 'react-redux'
 import { store } from './store/store'
 
@@ -15,6 +16,7 @@ const App = () => {
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/welcome" element={<Welcome />} />
           <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/search" element={<Search />} />

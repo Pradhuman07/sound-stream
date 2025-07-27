@@ -24,7 +24,7 @@ const Login = () => {
       })
       
       dispatch(authSuccess(response.data.user))
-      navigate('/')
+      navigate('/welcome')
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Login failed'
       setError(errorMessage)

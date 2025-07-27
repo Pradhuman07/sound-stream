@@ -26,7 +26,7 @@ const Register = () => {
       });
       
       dispatch(authSuccess(response.data.user))
-      navigate('/')
+      navigate('/welcome', { state: { isNewUser: true } })
     } catch (err) {
       const errorMessage = err.response?.data?.message || 'Registration failed'
       setError(errorMessage)
