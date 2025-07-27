@@ -105,7 +105,7 @@ const Home = () => {
                       className="w-12 h-12 object-cover rounded-md mr-4"
                     />
                     <div>
-                      <h3 className={`font-medium ${currentSong?._id === song._id ? 'text-blue-400' : ''}`}>{song.title}</h3>
+                      <h3 className={`font-medium ${currentSong?._id === song._id ? 'text-gray-500' : ''}`}>{song.title}</h3>
                       <p className="text-sm text-gray-500">{song.artist}</p>
                     </div>
                   </div>
@@ -133,16 +133,20 @@ const Home = () => {
         </div>
       </main>
 
-      {/* Current song playing */}
+
+
+      {/* PLAYER SECTION (BOTTOM ONE WITH CONTROLS) */}
+
+
       {currentSong && (
         <div className="fixed bottom-14 md:bottom-14 left-0 right-0 bg-indigo-100 border-t border-gray-300 py-2 px-4 rounded-t-2xl lg:rounded-t-3xl">
           <div className="flex flex-col max-w-screen-xl mx-auto">
             {/* Song info and controls */}
             <div className="flex items-center mb-2">
               <img src={currentSong.poster} alt="now-playing" className="w-12 h-12 object-cover rounded-md mr-4" />
-              <div className="flex-1">
-                <h3 className="font-medium text-gray-600">{currentSong.title}</h3>
-                <p className="text-sm text-gray-500">{currentSong.artist}</p>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-medium text-gray-600 truncate max-w-[200px]">{currentSong.title}</h3>
+                <p className="text-sm text-gray-500 truncate max-w-[200px]">{currentSong.artist}</p>
               </div>
 
               {/* Control buttons */}

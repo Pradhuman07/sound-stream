@@ -1,27 +1,28 @@
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 const Header = () => {
     const navigate = useNavigate()
+    const { user } = useSelector(state => state.auth)
+    const firstName = user?.name?.split(' ')[0] || 'Guest'
 
     return (
-        <header className="fixed top-0 left-0 right-0 bg-white px-4 py-2 md:px-8 md:py-3 shadow-md z-10">
-            <div className="flex items-center justify-between">
+        <header className="fixed inset-x-0 top-0 px-5 lg:px-0 py-3 md:py-4 shadow-lg z-10 rounded-b-2xl bg-gray-100 backdrop-blur-sm">
+            <div className="flex items-center justify-between max-w-7xl mx-auto">
+
                 {/* logo */}
-                <div className="flex items-center gap-2">
-                    <div className="w-4 h-4 bg-black transform rotate-45"></div>
-                    <h1 className="text-xl md:text-2xl font-semibold">Stream</h1>
+                <div onClick={() => navigate('/')} className="flex items-center gap-3 cursor-pointer">
+                    <div className="w-3.5 h-3.5 bg-gradient-to-r from-indigo-500 to-blue-300 transform rotate-45 transition-transform hover:rotate-90"></div>
+                    <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-blue-300 bg-clip-text text-transparent">Stream</h1>
                 </div>
 
-                {/* search bar */}
-                <div className="flex items-center">
-                    <button className="p-2 cursor-pointer" onClick={() => navigate('/search')}>
-
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-                        </svg>
-                    </button>
+                {/* User avatar */}
+                <div className="w-7 h-7 rounded-full bg-gradient-to-r from-blue-300 to-indigo-400 flex items-center justify-center text-white">
+                    {firstName.charAt(0)}
                 </div>
+
             </div>
+
         </header>
     )
 }
