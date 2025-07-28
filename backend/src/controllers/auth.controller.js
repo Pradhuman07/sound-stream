@@ -30,7 +30,7 @@ export async function registerUser(req, res) {
     const token = jwt.sign({ id: user._id }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRY });  // create a JWT token with user id and secret key
 
     res.cookie("token", token, {
-        expires: new Date(Date.now() + config.COOKIE_EXPIRY), // Cookie expiry from config
+        maxAge: config.COOKIE_EXPIRY,
         httpOnly: true
     });  // set the token in a cookie with expiry
 
@@ -61,13 +61,13 @@ export async function loginUser(req, res) {
         return res.status(400).json({ message: "Invalid email or password" })
     }
 
-    const token = jwt.sign({ id: userExist._id }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRY });  // create a JWT token with user id and secret key
-
-    res.cookie("token", token, {
-        expires: new Date(Date.now() + config.COOKIE_EXPIRY), // Cookie expiry from config
-        httpOnly: true
+   const token = jwt.sign({ id: userExist._id }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRY });  // create a JWT token with user id and secret key
+   
+   res.cookie("token", token, {
+       maxAge: config.COOKIE_EXPIRY,
+       httpOnly: true
     });  // set the token in a cookie with expiry
-
+    
     return res.status(200).json({                   // not 201
         message: "user logged in Successfully",
         user: {
@@ -83,7 +83,6 @@ export async function logoutUser(req, res) {
     res.clearCookie("token");  // This clears the token cookie
     return res.status(200).json({ message: "Logged out successfully" });
 }
-
 
 /*
 Mistakes: not using await in userModel.create and userModel.findOne , always use await when dealing with any database operation, since they are asynchronous operations
