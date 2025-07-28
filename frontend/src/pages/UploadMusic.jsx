@@ -107,7 +107,7 @@ const UploadMusic = () => {
                   className="hidden"
                   required
                 />
-                <div className="w-full p-3 text-center font-medium bg-gray-100 text-gray-600 rounded-4xl cursor-pointer hover:bg-gray-200">
+                <div className="w-full p-3 text-center font-medium bg-gray-100 text-gray-600 rounded-4xl cursor-pointer hover:bg-gray-200 active:bg-gray-300">
                   Upload Audio File
                 </div>
               </label>
@@ -120,7 +120,7 @@ const UploadMusic = () => {
                   className="hidden"
                   required
                 />
-                <div className="w-full p-3 text-center font-medium bg-gray-100 text-gray-600 rounded-4xl cursor-pointer hover:bg-gray-200">
+                <div className="w-full p-3 text-center font-medium bg-gray-100 text-gray-600 rounded-4xl cursor-pointer hover:bg-gray-200 active:bg-gray-300">
                   Upload Image File
                 </div>
               </label>
