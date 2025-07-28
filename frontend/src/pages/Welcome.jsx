@@ -20,7 +20,7 @@ const Welcome = () => {
     // Navigate when both conditions are met:
     // 1. Minimum display time has elapsed (3s)         // i.e minTimeElapsed is true
     // 2. Data is loaded (we have user and songs data)
-    
+
     useEffect(() => {
         if (minTimeElapsed) {   // && user && songs.length > 0
             navigate('/')
@@ -28,33 +28,38 @@ const Welcome = () => {
     }, [minTimeElapsed, user, songs, navigate])
 
     return (
-        <div className="min-h-screen bg-black text-white flex flex-col items-center justify-center">
+        <div className="min-h-screen bg-gradient-to-br from-white to-blue-50 text-gray-400 flex flex-col items-center justify-center ">
+
+            <div className="flex items-center justify-center gap-3 mb-2 top-3 absolute animate-scale-in">
+                <div className="w-5 h-5 bg-gradient-to-r from-blue-400 to-indigo-300 transform rotate-45 shadow-md"></div>
+                <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-indigo-300 bg-clip-text text-transparent">SoundStream</h2>
+            </div>
+
             {/* Welcome Text with Animation */}
             <div className="text-center animate-fade-in">
-                <h1 className="text-4xl font-bold mb-2 animate-slide-up">
+                <h1 className="text-2xl font-bold mb-2 -mt-16 animate-slide-up">
                     {isNewUser ? 'Welcome, ' : 'Welcome back, '}
-                    <span className="text-blue-400">{user?.name?.split(' ')[0]}!</span>
+                    <span className="bg-gradient-to-r from-blue-300 to-indigo-300 bg-clip-text text-transparent">{user?.name?.split(' ')[0]}!</span>
                 </h1>
 
                 {/* App Logo and Name */}
-                <div className="my-8 animate-scale-in">
-                    <div className="flex items-center justify-center gap-3 mb-2">
-                        <div className="w-5 h-5 bg-white transform rotate-45"></div>
-                        <h2 className="text-2xl font-semibold">Sound Stream</h2>
-                    </div>
-                    <p className="text-gray-400 text-sm">Your Personal Music Haven</p>
+                <div className="my-6 animate-scale-in">
+                    <p className="text-gray-600 text-sm">Your Personal Music Haven</p>
                 </div>
 
                 {/* Loading Animation */}
                 <div className="flex justify-center space-x-2 my-6">
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce delay-0"></div>
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce delay-150"></div>
-                    <div className="w-2 h-2 bg-blue-400 rounded-full animate-bounce delay-300"></div>
+                    <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-indigo-300 rounded-full animate-bounce delay-0 shadow-md"></div>
+                    <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-indigo-300 rounded-full animate-bounce delay-150 shadow-md"></div>
+                    <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-indigo-300 rounded-full animate-bounce delay-300 shadow-md"></div>
                 </div>
 
                 {/* Creator Credit */}
-                <div className="mt-8 text-sm text-gray-400 animate-fade-in-delayed">
-                    Created with ❤️ by Pradhuman
+                <div className="bottom-6 absolute left-0 right-0 text-center animate-fade-in-delayed">
+                    <div className="space-y-1">
+                        <p className="text-sm text-gray-600">Created by Pradhuman</p>
+                        <p className="text-xs text-gray-500">© {new Date().getFullYear()} SoundStream • All rights reserved</p>
+                    </div>
                 </div>
             </div>
         </div>
