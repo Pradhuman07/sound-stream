@@ -47,7 +47,6 @@ const Register = () => {
       {/* Logo */}
       <Logo />
 
-
       {/* Register Form */}
       <div className="w-full max-w-md px-4">
 
@@ -74,7 +73,7 @@ const Register = () => {
             required
             type="text"
             placeholder="Name"
-            className="w-full p-3 bg-gradient-to-r from-blue-50 to-indigo-50/50 rounded-lg outline-none focus:from-blue-100 focus:to-indigo-100/50 transition-all shadow-sm"
+            className="w-full p-3 bg-gradient-to-r from-blue-50 to-indigo-50/50 rounded-lg outline-none focus:from-blue-100 focus:to-indigo-100/50 active:scale-[0.99] transition-all shadow-sm"
           />
 
           <input
@@ -85,7 +84,7 @@ const Register = () => {
             required
             type="email"
             placeholder="Email"
-            className="w-full p-3 bg-gradient-to-r from-blue-50 to-indigo-50/50 rounded-lg outline-none focus:from-blue-100 focus:to-indigo-100/50 transition-all shadow-sm"
+            className="w-full p-3 bg-gradient-to-r from-blue-50 to-indigo-50/50 rounded-lg outline-none focus:from-blue-100 focus:to-indigo-100/50 active:scale-[0.99] transition-all shadow-sm"
           />
 
           <input
@@ -96,12 +95,12 @@ const Register = () => {
             required
             type="password"
             placeholder="Password"
-            className="w-full p-3 bg-gradient-to-r from-blue-50 to-indigo-50/50 rounded-lg outline-none focus:from-blue-100 focus:to-indigo-100/50 transition-all shadow-sm"
+            className="w-full p-3 bg-gradient-to-r from-blue-50 to-indigo-50/50 rounded-lg outline-none focus:from-blue-100 focus:to-indigo-100/50 active:scale-[0.99] transition-all shadow-sm"
           />
 
           <button
             type="submit"
-            className="w-full p-3 text-white bg-gradient-to-r from-blue-400 to-indigo-300 rounded-lg hover:from-blue-500 hover:to-indigo-600 cursor-pointer transition-all shadow-md"
+            className="w-full p-3 text-white bg-gradient-to-r from-blue-400 to-indigo-300 rounded-lg hover:from-blue-500 hover:to-indigo-600 active:scale-95 cursor-pointer transition-all shadow-md"
           >
             Register
           </button>
@@ -112,7 +111,7 @@ const Register = () => {
       {/* Login link */}
       <div>
         <p className="mt-6 text-center text-gray-600">
-          Already have an account? <Link to="/login" className="text-blue-700 hover:underline cursor-pointer">Login</Link>
+          Already have an account? <Link to="/login" className="text-blue-700 hover:underline active:text-blue-900 cursor-pointer">Login</Link>
         </p>
       </div>
       
