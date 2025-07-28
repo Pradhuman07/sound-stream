@@ -1,7 +1,14 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const SecurityPinModal = ({ isOpen, onClose, onConfirm }) => {
   const [pin, setPin] = useState('');
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+  }, [isOpen]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -12,11 +19,12 @@ const SecurityPinModal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-gray-200 bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-gray-200 bg-opacity-50 flex items-center justify-center z-50 max-sm:-mt-36 ">
       <div className="bg-white p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
         <h2 className="text-xl font-semibold mb-4 text-gray-800">Security Check</h2>
         <form onSubmit={handleSubmit}>
           <input
+            ref={inputRef}
             type="password"
             placeholder="Enter security pin"
             value={pin}
