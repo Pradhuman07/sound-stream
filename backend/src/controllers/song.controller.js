@@ -1,5 +1,6 @@
 import { uploadAudioFileOnImageKit, uploadPosterFileOnImageKit } from '../services/storage.service.js';
 import { getSongById, getAllSongs, uploadSong, searchSongs } from '../dao/song.dao.js'; 
+import config from '../config/config.js';
 
 // export async function uploadSong(req, res) {        // Old version:- Only audio file upload, poster -> default value as provided in the schema/model
 
@@ -27,8 +28,14 @@ import { getSongById, getAllSongs, uploadSong, searchSongs } from '../dao/song.d
 // but we only need the url to store in the database, i.e why we use audioFileFromImageKit.url to store in the database
 
 export async function uploadSongController(req, res) {
+    const { title, artist, securityPin } = req.body;
 
-    const { title, artist } = req.body;
+    // Verify security pin
+    if (!securityPin || securityPin !== config.UPLOAD_SECURITY_PIN) {
+        return res.status(403).json({
+            message: "Invalid security pin"
+        });
+    }
 
     if (!req.files || !req.files.audio || !req.files.poster) {  
         return res.status(400).json({

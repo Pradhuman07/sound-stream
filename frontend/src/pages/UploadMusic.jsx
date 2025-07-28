@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom'
 import api from '../config/api'
 import { useDispatch } from 'react-redux'
 import { fetchSongs } from '../store/musicSlice'
+import SecurityPinModal from '../components/SecurityPinModal'
 
 const UploadMusic = () => {
   const navigate = useNavigate()
@@ -15,17 +16,26 @@ const UploadMusic = () => {
   const [audioFile, setAudioFile] = useState(null)
   const [imageFile, setImageFile] = useState(null)
   const [isUploading, setIsUploading] = useState(false)
+  const [showPinModal, setShowPinModal] = useState(false)
+  const [formData, setFormData] = useState(null)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    // Store form data and show pin modal
+    setFormData(new FormData())
+    setShowPinModal(true)
+  }
+
+  const handleUploadWithPin = async (pin) => {
     setIsUploading(true)
+    setShowPinModal(false)
     
     try {
-      const formData = new FormData()
       formData.append('title', songTitle)
       formData.append('artist', artistName)
       formData.append('audio', audioFile)
       formData.append('poster', imageFile)
+      formData.append('securityPin', pin)
 
       await api.post('/song/upload', formData, {
         headers: {
@@ -159,6 +169,14 @@ const UploadMusic = () => {
         </div>
 
       </div>
+
+        {/* Security Pin Modal */}
+        <SecurityPinModal
+          isOpen={showPinModal}
+          onClose={() => setShowPinModal(false)}
+          onConfirm={handleUploadWithPin}
+          className="bg-red"
+        />
 
         {/* Footer */}
         <Footer />
