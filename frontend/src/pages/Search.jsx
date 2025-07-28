@@ -134,8 +134,8 @@ const Search = () => {
       {/* Header */}
       <Header />
 
-      <main className="pt-17 md:pt-19 md:pb-34 pb-40 px-4">
-        <div className="mb-6">
+      <main className="pt-18 md:pt-19 md:pb-40 md:mt-3 pb-40 px-4">
+        <div className="mb-4 md:mb-4">
           <div className="relative">
             <input
               ref={searchInputRef}

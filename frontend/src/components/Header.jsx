@@ -20,7 +20,7 @@ const Header = () => {
                 </div>
 
                 {/* User avatar */}
-                <div className="w-8 h-8 lg:w-9 lg:h-9 rounded-full bg-gradient-to-r from-blue-300 to-indigo-400 flex items-center justify-center text-white">
+                <div className="w-8 h-8 lg:w-9 lg:h-9 rounded-full bg-gradient-to-r from-blue-300 to-indigo-400 flex items-center justify-center text-white border-2 border-blue-300 border-solid">
                     {firstName.charAt(0)}
                 </div>
 
