@@ -121,7 +121,7 @@ const Home = () => {
       <Header />
 
       {/* All songs */}
-      <main className="pt-17 md:pt-19 md:pb-34 pb-34 px-4">
+      <main className="pt-17 md:pt-19 md:pb-34 pb-40 px-4">
         <div className="max-w-screen-xl mx-auto">
           {loading ? (
             <div className="flex justify-center items-center min-h-[200px]">
@@ -178,10 +178,7 @@ const Home = () => {
         </div>
       </main>
 
-
-
       {/* PLAYER SECTION (BOTTOM ONE WITH CONTROLS) */}
-
 
       {currentSong && (
         <div className="fixed bottom-14 md:bottom-14 left-0 right-0 bg-indigo-100 border-t border-gray-300 py-2 px-4 rounded-t-2xl lg:rounded-t-3xl">

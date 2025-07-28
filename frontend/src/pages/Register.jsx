@@ -42,7 +42,7 @@ const Register = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-between min-h-screen bg-gradient-to-b from-white to-indigo-50/50 py-2">
+    <div className="flex flex-col items-center justify-between min-h-screen bg-gradient-to-b from-white to-indigo-50/50 py-4">
 
       {/* Logo */}
       <Logo />

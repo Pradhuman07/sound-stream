@@ -31,19 +31,21 @@ const Welcome = () => {
         <div className="min-h-screen bg-gradient-to-br from-white to-blue-50 text-gray-400 flex flex-col items-center justify-center ">
 
             <div className="flex items-center justify-center gap-3 mb-2 top-3 absolute animate-scale-in">
-                <div className="w-5 h-5 bg-gradient-to-r from-blue-400 to-indigo-300 transform rotate-45 shadow-md"></div>
-                <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-400 to-indigo-300 bg-clip-text text-transparent">SoundStream</h2>
+                <div onClick={() => navigate('/')} className="flex items-center gap-3 cursor-pointer">
+                    <div className="w-3.5 h-3.5 bg-gradient-to-r from-indigo-500 to-blue-300 transform rotate-45 transition-transform hover:rotate-90"></div>
+                    <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-400 to-blue-300 bg-clip-text text-transparent">SoundStream</h1>
+                </div>
             </div>
 
             {/* Welcome Text with Animation */}
             <div className="text-center animate-fade-in">
-                <h1 className="text-2xl font-bold mb-2 -mt-16 animate-slide-up">
+                <h1 className="text-2xl font-bold mb-2 -mt-12 animate-slide-up">
                     {isNewUser ? 'Welcome, ' : 'Welcome back, '}
                     <span className="bg-gradient-to-r from-blue-300 to-indigo-300 bg-clip-text text-transparent">{user?.name?.split(' ')[0]}!</span>
                 </h1>
 
                 {/* App Logo and Name */}
-                <div className="my-6 animate-scale-in">
+                <div className="my-4 animate-scale-in">
                     <p className="text-gray-600 text-sm">Your Personal Music Haven</p>
                 </div>
 
@@ -55,7 +57,7 @@ const Welcome = () => {
                 </div>
 
                 {/* Creator Credit */}
-                <div className="bottom-6 absolute left-0 right-0 text-center animate-fade-in-delayed">
+                <div className="bottom-3 absolute left-0 right-0 text-center animate-fade-in-delayed">
                     <div className="space-y-1">
                         <p className="text-sm text-gray-600">Created by Pradhuman</p>
                         <p className="text-xs text-gray-500">© {new Date().getFullYear()} SoundStream • All rights reserved</p>

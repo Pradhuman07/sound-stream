@@ -134,7 +134,7 @@ const Search = () => {
       {/* Header */}
       <Header />
 
-      <main className="pt-17 md:pt-19 md:pb-34 pb-34 px-4">
+      <main className="pt-17 md:pt-19 md:pb-34 pb-40 px-4">
         <div className="mb-6">
           <div className="relative">
             <input
