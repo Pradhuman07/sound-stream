@@ -42,7 +42,7 @@ const Register = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-between min-h-screen bg-white py-2">
+    <div className="flex flex-col items-center justify-between min-h-screen bg-gradient-to-b from-white to-indigo-50/50 py-2">
 
       {/* Logo */}
       <Logo />
@@ -51,7 +51,7 @@ const Register = () => {
       {/* Register Form */}
       <div className="w-full max-w-md px-4">
 
-        <h1 className='text-xl font-bold text-center mb-4'>Create new Account</h1>
+        <h1 className='text-2xl font-medium text-center mb-5 bg-indigo-300 bg-clip-text text-transparent'>Create new Account</h1>
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">
@@ -74,7 +74,7 @@ const Register = () => {
             required
             type="text"
             placeholder="Name"
-            className="w-full p-3 bg-gray-100 rounded-md outline-none"
+            className="w-full p-3 bg-gradient-to-r from-blue-50 to-indigo-50/50 rounded-lg outline-none focus:from-blue-100 focus:to-indigo-100/50 transition-all shadow-sm"
           />
 
           <input
@@ -85,7 +85,7 @@ const Register = () => {
             required
             type="email"
             placeholder="Email"
-            className="w-full p-3 bg-gray-100 rounded-md outline-none"
+            className="w-full p-3 bg-gradient-to-r from-blue-50 to-indigo-50/50 rounded-lg outline-none focus:from-blue-100 focus:to-indigo-100/50 transition-all shadow-sm"
           />
 
           <input
@@ -96,12 +96,12 @@ const Register = () => {
             required
             type="password"
             placeholder="Password"
-            className="w-full p-3 bg-gray-100 rounded-md outline-none"
+            className="w-full p-3 bg-gradient-to-r from-blue-50 to-indigo-50/50 rounded-lg outline-none focus:from-blue-100 focus:to-indigo-100/50 transition-all shadow-sm"
           />
 
           <button
             type="submit"
-            className="w-full p-3 text-white bg-black rounded-md hover:bg-gray-900 cursor-pointer"
+            className="w-full p-3 text-white bg-gradient-to-r from-blue-400 to-indigo-300 rounded-lg hover:from-blue-500 hover:to-indigo-600 cursor-pointer transition-all shadow-md"
           >
             Register
           </button>
