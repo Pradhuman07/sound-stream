@@ -17,7 +17,7 @@ const songSchema = new mongoose.Schema({
         type: String,
         required: true
     }
-})
+}, { timestamps: true })  // This will add createdAt and updatedAt fields automatically
 
 const songModel = mongoose.model("songs", songSchema);
 

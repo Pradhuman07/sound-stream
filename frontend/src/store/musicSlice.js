@@ -8,7 +8,11 @@ export const fetchSongs = createAsyncThunk(
     try {
       const response = await api.get('/song')  // Changed to match backend route
       if (response.data?.songs) {
-        return response.data.songs
+        // Sort songs by createdAt in descending order (newest first)
+        const sortedSongs = [...response.data.songs].sort((a, b) => 
+          new Date(b.createdAt) - new Date(a.createdAt)
+        );
+        return sortedSongs;
       } else {
         return rejectWithValue('No songs found')
       }

@@ -129,10 +129,10 @@ const UploadMusic = () => {
 
             {/* Display selected file names */}
             {audioFile && (
-              <p className="text-sm text-gray-400 ml-6">Audio: {audioFile.name}</p>
+              <p className="text-sm text-gray-400 ml-4">Audio: {audioFile.name}</p>
             )}
             {imageFile && (
-              <p className="text-sm text-gray-400 ml-6">Image: {imageFile.name}</p>
+              <p className="text-sm text-gray-400 ml-4">Image: {imageFile.name}</p>
             )}
 
             {/* Submit Button */}
