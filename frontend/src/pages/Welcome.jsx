@@ -57,7 +57,7 @@ const Welcome = () => {
                 </div>
 
                 {/* Creator Credit */}
-                <div className="bottom-3 absolute left-0 right-0 text-center animate-fade-in-delayed">
+                <div className="bottom-4 absolute left-0 right-0 text-center animate-fade-in-delayed">
                     <div className="space-y-1">
                         <p className="text-sm text-gray-600">Created by Pradhuman</p>
                         <p className="text-xs text-gray-500">© {new Date().getFullYear()} SoundStream • All rights reserved</p>
