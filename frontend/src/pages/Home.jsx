@@ -121,7 +121,7 @@ const Home = () => {
       <Header />
 
       {/* All songs */}
-      <main className="pt-17 md:pt-19 md:pb-34 pb-40 px-4">
+      <main className="pt-18 md:pt-19 md:pb-34 pb-40 px-4">
         <div className="max-w-screen-xl mx-auto">
           {loading ? (
             <div className="flex justify-center items-center min-h-[200px]">

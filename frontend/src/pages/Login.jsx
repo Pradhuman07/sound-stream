@@ -45,8 +45,8 @@ const Login = () => {
 
       {/* Login Form */}
       <div className="w-full max-w-md px-4">
-        
-        <h1 className='text-2xl font-medium text-center mb-6 bg-indigo-300 bg-clip-text text-transparent'>Sign in to feel every beat!</h1>
+
+        <h1 className='text-xl font-medium text-center mb-4 bg-gradient-to-r from-indigo-400 to-blue-300 bg-clip-text text-transparent'>Sign in to feel the beats!</h1>
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-5">

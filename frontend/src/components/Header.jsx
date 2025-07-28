@@ -15,12 +15,12 @@ const Header = () => {
 
                 {/* logo */}
                 <div onClick={() => navigate('/')} className="flex items-center gap-3 cursor-pointer">
-                    <div className="w-3.5 h-3.5 bg-gradient-to-r from-indigo-500 to-blue-300 transform rotate-45 transition-transform hover:rotate-90"></div>
-                    <h1 className="text-2xl font-bold bg-gradient-to-r from-indigo-400 to-blue-300 bg-clip-text text-transparent">Stream</h1>
+                    <div className="w-3.5 h-3.5 lg:w-4 lg:h-4 bg-gradient-to-r from-indigo-500 to-blue-300 transform rotate-45 transition-transform hover:rotate-90"></div>
+                    <h1 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-indigo-400 to-blue-300 bg-clip-text text-transparent">Stream</h1>
                 </div>
 
                 {/* User avatar */}
-                <div className="w-7 h-7 rounded-full bg-gradient-to-r from-blue-300 to-indigo-400 flex items-center justify-center text-white">
+                <div className="w-8 h-8 lg:w-9 lg:h-9 rounded-full bg-gradient-to-r from-blue-300 to-indigo-400 flex items-center justify-center text-white">
                     {firstName.charAt(0)}
                 </div>
 
