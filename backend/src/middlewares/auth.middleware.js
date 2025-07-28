@@ -19,8 +19,9 @@ export async function authMiddleware(req, res, next) {          // This middlewa
         next();                                                // Call the next middleware or route handler(controller) automatically if the token is valid.
     }
     catch (error) {
+        res.clearCookie('token');  // Clear the expired/invalid token cookie
         return res.status(401).json({
-            message: 'Unauthorized'
+            message: 'Session expired. Please login again'
         });                                                     // If the token is invalid or expired, return 401 Unauthorized status code with a message.
     }
 }

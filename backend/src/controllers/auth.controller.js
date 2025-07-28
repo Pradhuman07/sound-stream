@@ -27,9 +27,12 @@ export async function registerUser(req, res) {
         password: hash
     })
 
-    const token = jwt.sign({ id: user._id }, config.JWT_SECRET, { expiresIn: '1d' });  // create a JWT token with user id and secret key, expires in 1 day
+    const token = jwt.sign({ id: user._id }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRY });  // create a JWT token with user id and secret key
 
-    res.cookie("token", token);  // set the token in a cookie
+    res.cookie("token", token, {
+        expires: new Date(Date.now() + config.COOKIE_EXPIRY), // Cookie expiry from config
+        httpOnly: true
+    });  // set the token in a cookie with expiry
 
     return res.status(201).json({                       // 201 -> new resource created successfully
         message: "User registered successfully",
@@ -58,9 +61,12 @@ export async function loginUser(req, res) {
         return res.status(400).json({ message: "Invalid email or password" })
     }
 
-    const token = jwt.sign({ id: userExist._id }, config.JWT_SECRET, { expiresIn: '1d' });  // create a JWT token with user id and secret key, expires in 1 day
+    const token = jwt.sign({ id: userExist._id }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRY });  // create a JWT token with user id and secret key
 
-    res.cookie("token", token);  // set the token in a cookie
+    res.cookie("token", token, {
+        expires: new Date(Date.now() + config.COOKIE_EXPIRY), // Cookie expiry from config
+        httpOnly: true
+    });  // set the token in a cookie with expiry
 
     return res.status(200).json({                   // not 201
         message: "user logged in Successfully",

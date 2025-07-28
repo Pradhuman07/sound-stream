@@ -10,6 +10,20 @@ const api = axios.create({                         // Create an axios instance w
     },
 });
 
+// Add a response interceptor to handle token expiration
+api.interceptors.response.use(
+    (response) => response,
+    (error) => {
+        if (error.response?.status === 401) {
+            // Clear localStorage
+            localStorage.removeItem('user');
+            // Redirect to login page
+            window.location.href = '/login';
+        }
+        return Promise.reject(error);
+    }
+);
+
 export default api;
 
 /*# Axios is a popular HTTP client library that makes it easier to make requests to servers. Think of it like a messenger 📬
