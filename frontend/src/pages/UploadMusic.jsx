@@ -149,10 +149,10 @@ const UploadMusic = () => {
             <button
               type="submit"
               disabled={isUploading}
-              className={`w-full p-3 text-white bg-indigo-300 rounded-full ${
+              className={`w-full p-3 text-white bg-indigo-500 rounded-full ${
                 isUploading 
                   ? 'opacity-75 cursor-not-allowed' 
-                  : 'hover:bg-gray-900 cursor-pointer'
+                  : 'hover:bg-indigo-800 cursor-pointer'
               }`}
             >
               {isUploading ? (
