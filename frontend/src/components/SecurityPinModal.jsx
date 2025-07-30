@@ -42,7 +42,7 @@ const SecurityPinModal = ({ isOpen, onClose, onConfirm }) => {
             </button>
             <button
               type="submit"
-              className="flex-1 p-3 text-white bg-indigo-300 rounded-md hover:bg-gray-900"
+              className="flex-1 p-3 text-white bg-indigo-400 rounded-md hover:bg-gray-900"
             >
               Confirm
             </button>
