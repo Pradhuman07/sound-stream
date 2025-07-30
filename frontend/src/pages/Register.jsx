@@ -50,7 +50,7 @@ const Register = () => {
       {/* Register Form */}
       <div className="w-full max-w-md px-4">
 
-        <h1 className='text-xl font-medium text-center mb-4 bg-gradient-to-r from-indigo-400 to-blue-300 bg-clip-text text-transparent'>Create new Account</h1>
+        <h1 className='text-xl font-medium text-center mb-4 bg-gradient-to-r from-indigo-500 to-blue-300 bg-clip-text text-transparent'>Create new Account</h1>
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4">

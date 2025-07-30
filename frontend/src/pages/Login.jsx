@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux'
 import { authStart, authSuccess, authFailure } from '../store/authSlice'
 import api from '../config/api'
 import Logo from '../components/Logo'
+import { GiMusicalNotes } from "react-icons/gi";
 
 const Login = () => {
   const navigate = useNavigate()
@@ -46,7 +47,7 @@ const Login = () => {
       {/* Login Form */}
       <div className="w-full max-w-md px-4">
 
-        <h1 className='text-xl font-medium text-center mb-4 bg-gradient-to-r from-indigo-500 to-blue-300 bg-clip-text text-transparent'>Sign in to feel the beats!</h1>
+        <h1 className='text-xl font-medium text-center mb-4 bg-gradient-to-r from-indigo-500 to-blue-300 bg-clip-text text-transparent flex justify-center items-center gap-1'>Sign-in to feel the beats<GiMusicalNotes className='text-blue-400 text-lg'/> </h1>
 
         {error && (
           <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-5">
