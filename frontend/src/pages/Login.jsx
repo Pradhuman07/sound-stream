@@ -64,7 +64,7 @@ const Login = () => {
             required
             type="email"
             placeholder="Email"
-            className="w-full p-3 bg-gradient-to-r from-blue-50 to-indigo-50/50 rounded-lg outline-none focus:from-blue-100 focus:to-indigo-100/50 transition-all shadow-sm"
+            className="w-full p-3 bg-gradient-to-r from-blue-100 to-indigo-100/50 rounded-lg outline-none focus:from-blue-200 focus:to-indigo-200/50 transition-all shadow-sm"
           />
 
           <input
@@ -73,7 +73,7 @@ const Login = () => {
             required
             type="password"
             placeholder="Password"
-            className="w-full p-3 bg-gradient-to-r from-blue-50 to-indigo-50/50 rounded-lg outline-none focus:from-blue-100 focus:to-indigo-100/50 transition-all shadow-sm"
+            className="w-full p-3 bg-gradient-to-r from-blue-100 to-indigo-100/50 rounded-lg outline-none focus:from-blue-200 focus:to-indigo-200/50 transition-all shadow-sm"
           />
 
           <button
