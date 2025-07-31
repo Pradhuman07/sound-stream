@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { IoMdMusicalNote } from "react-icons/io";
+import Logo from '../components/Logo'
 
 const Welcome = () => {
     const navigate = useNavigate()
@@ -29,25 +30,25 @@ const Welcome = () => {
     }, [minTimeElapsed, user, songs, navigate])
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-white to-blue-50 text-gray-400 flex flex-col items-center justify-center ">
+        <div className="min-h-screen bg-gradient-to-br from-white to-blue-50 text-gray-400 flex flex-col items-center justify-between py-4 ">
 
-            <div className="flex items-center justify-center gap-3 mb-2 top-4 absolute ">
-                <div className="flex items-center gap-2 md:gap-2.5 cursor-pointer">
-                    <div className="w-7.5 h-7.5 md:w-9 md:h-9 bg-gradient-to-r from-blue-300 to-indigo-400  transform rotate-45 transition-transform hover:rotate-90 flex items-center justify-center rounded-full">
-                        <IoMdMusicalNote className="text-white transform -rotate-45" size={20} />
-                    </div>
-                    <h1 className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-indigo-400 to-blue-300 bg-clip-text text-transparent">SoundStream</h1>
-                </div>
-            </div>
+            {/* APP LOGO */}
 
-            {/* Welcome Text with Animation */}
+            <Logo />
+
+            {/*Beech wla material*/}
+
             <div className="text-center animate-fade-in">
-                <h1 className="text-2xl font-bold mb-2 -mt-12 animate-slide-up">
+
+                {/* Welcome Text and Name */}
+
+                <h1 className="text-2xl font-bold mb-2  animate-slide-up">
                     {isNewUser ? 'Welcome, ' : 'Welcome back, '}
                     <span className="bg-gradient-to-r from-blue-300 to-indigo-300 bg-clip-text text-transparent">{user?.name?.split(' ')[0]}!</span>
                 </h1>
 
-                {/* App Logo and Name */}
+                {/* Quote */}
+
                 <div className="my-4 animate-scale-in">
                     <p className="text-gray-600 text-sm">Your Personal Music Haven</p>
                 </div>
@@ -59,14 +60,16 @@ const Welcome = () => {
                     <div className="w-2 h-2 bg-gradient-to-r from-blue-400 to-indigo-300 rounded-full animate-bounce delay-300 shadow-md"></div>
                 </div>
 
-                {/* Creator Credit */}
-                <div className="bottom-4 absolute left-0 right-0 text-center animate-fade-in-delayed">
-                    <div className="space-y-1">
-                        <p className="text-sm text-gray-600">Created by Pradhuman</p>
-                        <p className="text-xs text-gray-500">© {new Date().getFullYear()} SoundStream • All rights reserved</p>
-                    </div>
+            </div>
+
+            {/* Creator Credit */}
+            <div className=" left-0 right-0 text-center animate-fade-in-delayed">
+                <div className="space-y-1">
+                    <p className="text-sm text-gray-600">Created by Pradhuman</p>
+                    <p className="text-xs text-gray-500">© {new Date().getFullYear()} SoundStream • All rights reserved</p>
                 </div>
             </div>
+
         </div>
     )
 }

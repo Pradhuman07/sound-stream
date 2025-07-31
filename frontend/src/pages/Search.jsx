@@ -168,7 +168,7 @@ const Search = () => {
                   className="w-12 h-12 object-cover rounded-md mr-4"
                 />
                 <div>
-                  <h3 className={`font-medium ${currentSong?._id === song._id ? 'text-blue-400' : ''}`}>{song.title}</h3>
+                  <h3 className={`font-medium ${currentSong?._id === song._id ? 'text-gray-500' : ''}`}>{song.title}</h3>
                   <p className="text-sm text-gray-500">{song.artist}</p>
                 </div>
               </div>
