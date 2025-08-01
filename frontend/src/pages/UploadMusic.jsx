@@ -75,7 +75,7 @@ const UploadMusic = () => {
   }
 
   return (
-    <div className="flex flex-col min-h-screen bg-white">
+    <div className="flex flex-col min-h-screen theme-bg-primary">
 
       <div className="flex-1 flex flex-col items-center justify-start px-4 py-4">
 
@@ -94,7 +94,7 @@ const UploadMusic = () => {
               placeholder="Song Title"
               value={songTitle}
               onChange={(e) => setSongTitle(e.target.value)}
-              className="w-full p-3 bg-gray-100 rounded-md outline-none"
+              className="w-full p-3 theme-bg-secondary theme-text-primary placeholder-gray-500 rounded-md outline-none"
               required
             />
 
@@ -103,7 +103,7 @@ const UploadMusic = () => {
               placeholder="Artist Name"
               value={artistName}
               onChange={(e) => setArtistName(e.target.value)}
-              className="w-full p-3 bg-gray-100 rounded-md outline-none"
+              className="w-full p-3 theme-bg-secondary theme-text-primary placeholder-gray-500 rounded-md outline-none"
               required
             />
 
@@ -117,7 +117,7 @@ const UploadMusic = () => {
                   className="hidden"
                   required
                 />
-                <div className="w-full p-3 text-center font-medium bg-gray-100 text-gray-600 rounded-4xl cursor-pointer hover:bg-gray-200 active:bg-gray-300">
+                <div className="w-full p-3 text-center font-medium theme-bg-secondary theme-text-secondary rounded-4xl cursor-pointer hover:opacity-80 active:opacity-60">
                   Upload Audio File
                 </div>
               </label>
@@ -130,7 +130,7 @@ const UploadMusic = () => {
                   className="hidden"
                   required
                 />
-                <div className="w-full p-3 text-center font-medium bg-gray-100 text-gray-600 rounded-4xl cursor-pointer hover:bg-gray-200 active:bg-gray-300">
+                <div className="w-full p-3 text-center font-medium theme-bg-secondary theme-text-secondary rounded-4xl cursor-pointer hover:opacity-80 active:opacity-60">
                   Upload Image File
                 </div>
               </label>
@@ -139,10 +139,10 @@ const UploadMusic = () => {
 
             {/* Display selected file names */}
             {audioFile && (
-              <p className="text-sm text-gray-400 ml-4">Audio: {audioFile.name}</p>
+              <p className="text-sm theme-text-tertiary ml-4">Audio: {audioFile.name}</p>
             )}
             {imageFile && (
-              <p className="text-sm text-gray-400 ml-4">Image: {imageFile.name}</p>
+              <p className="text-sm theme-text-tertiary ml-4">Image: {imageFile.name}</p>
             )}
 
             {/* Submit Button */}

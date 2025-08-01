@@ -12,7 +12,7 @@ const Footer = () => {
   const { audioRef } = useAudio()
 
   return (
-    <footer className="fixed bottom-0 left-0 right-0 bg-white px-4 py-2 md:px-4 md:py-2 border-t border-gray-300">
+    <footer className="fixed bottom-0 left-0 right-0 theme-bg-secondary px-4 py-2 md:px-4 md:py-2 border-t theme-border">
       <div className="flex justify-between items-center max-w-screen-xl mx-auto">
 
         <button 

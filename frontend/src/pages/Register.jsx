@@ -42,7 +42,7 @@ const Register = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-between min-h-screen bg-gradient-to-b from-white to-indigo-50/50 py-4">
+    <div className="flex flex-col items-center justify-between min-h-screen theme-bg-primary py-4">
 
       {/* Logo */}
       <Logo />
@@ -73,7 +73,7 @@ const Register = () => {
             required
             type="text"
             placeholder="Name"
-            className="w-full p-3 bg-gradient-to-r from-blue-100 to-indigo-100/50 rounded-lg outline-none focus:from-blue-200 focus:to-indigo-200/50 active:scale-[0.99] transition-all shadow-sm"
+            className="w-full p-3 theme-bg-tertiary rounded-lg outline-none focus:ring-2 focus:ring-blue-400 active:scale-[0.99] transition-all shadow-sm theme-text-primary"
           />
 
           <input
@@ -84,7 +84,7 @@ const Register = () => {
             required
             type="email"
             placeholder="Email"
-            className="w-full p-3 bg-gradient-to-r from-blue-100 to-indigo-100/50 rounded-lg outline-none focus:from-blue-200 focus:to-indigo-200/50 active:scale-[0.99] transition-all shadow-sm"
+            className="w-full p-3 theme-bg-tertiary rounded-lg outline-none focus:ring-2 focus:ring-blue-400 active:scale-[0.99] transition-all shadow-sm theme-text-primary"
           />
 
           <input
@@ -95,7 +95,7 @@ const Register = () => {
             required
             type="password"
             placeholder="Password"
-            className="w-full p-3 bg-gradient-to-r from-blue-100 to-indigo-100/50 rounded-lg outline-none focus:from-blue-100 focus:to-indigo-100/50 active:scale-[0.99] transition-all shadow-sm"
+            className="w-full p-3 theme-bg-tertiary rounded-lg outline-none focus:ring-2 focus:ring-blue-400 active:scale-[0.99] transition-all shadow-sm theme-text-primary"
           />
 
           <button
@@ -110,8 +110,8 @@ const Register = () => {
 
       {/* Login link */}
       <div>
-        <p className="mt-6 text-center text-gray-600">
-          Already have an account? <Link to="/login" className="text-blue-600 hover:underline active:text-blue-900 cursor-pointer">Login</Link>
+        <p className="mt-6 text-center theme-text-secondary">
+          Already have an account? <Link to="/login" className="text-blue-600 hover:underline cursor-pointer">Login</Link>
         </p>
       </div>
       

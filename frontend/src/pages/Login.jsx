@@ -38,7 +38,7 @@ const Login = () => {
   }
 
   return (
-    <div className="flex flex-col items-center justify-between min-h-screen bg-gradient-to-b from-white to-indigo-50/50 py-4">
+    <div className="flex flex-col items-center justify-between min-h-screen theme-bg-primary py-4">
 
       {/* Logo */}
       <Logo />
@@ -64,7 +64,7 @@ const Login = () => {
             required
             type="email"
             placeholder="Email"
-            className="w-full p-3 bg-gradient-to-r from-blue-100 to-indigo-100/50 rounded-lg outline-none focus:from-blue-200 focus:to-indigo-200/50 transition-all shadow-sm"
+            className="w-full p-3 theme-bg-tertiary rounded-lg outline-none focus:ring-2 focus:ring-blue-400 transition-all shadow-sm theme-text-primary"
           />
 
           <input
@@ -73,7 +73,7 @@ const Login = () => {
             required
             type="password"
             placeholder="Password"
-            className="w-full p-3 bg-gradient-to-r from-blue-100 to-indigo-100/50 rounded-lg outline-none focus:from-blue-200 focus:to-indigo-200/50 transition-all shadow-sm"
+            className="w-full p-3 theme-bg-tertiary rounded-lg outline-none focus:ring-2 focus:ring-blue-400 transition-all shadow-sm theme-text-primary"
           />
 
           <button
@@ -89,7 +89,7 @@ const Login = () => {
 
       {/* Sign up link */}
       <div>
-        <p className="mt-6 text-center text-gray-600">
+        <p className="mt-6 text-center theme-text-secondary">
           Don't have an account? <Link to="/register" className="text-blue-600 hover:underline cursor-pointer">Sign up</Link>
         </p>
       </div>

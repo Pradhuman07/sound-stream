@@ -1,6 +1,51 @@
 @import "tailwindcss";
 
-@import "tailwindcss";
+/* CSS Variables for theme colors */
+:root {
+  --bg-primary: #f9fafb;    /* gray-50 - light background */
+  --bg-secondary: #ffffff;   /* white - cards/components */
+  --bg-tertiary: #f3f4f6;    /* gray-100 - header/footer */
+  --bg-player: #e0e7ff;      /* indigo-100 - playing bar */
+  --bg-selected: linear-gradient(to right, #eff6ff, #e0e7ff); /* blue-50 to indigo-50 */
+  --text-primary: #111827;   /* gray-900 - main text */
+  --text-secondary: #4b5563; /* gray-600 - secondary text */
+  --text-tertiary: #6b7280;  /* gray-500 - muted text */
+  --music-bars: #9ca3af;     /* gray-400 - dancing bars */
+  --border-color: #d1d5db;   /* gray-300 - borders */
+  --border-selected: #dbeafe; /* blue-100 - selected borders */
+}
+
+.dark {
+  --bg-primary: #0f172a;     /* slate-900 - very dark background */
+  --bg-secondary: #1e293b;   /* slate-800 - dark cards */
+  --bg-tertiary: #334155;    /* slate-700 - dark header/footer */
+  --bg-player: #334155;      /* slate-700 - dark playing bar */
+  --bg-selected: linear-gradient(to right, rgba(30, 58, 138, 0.3), rgba(67, 56, 202, 0.3)); /* blue-900/30 to indigo-900/30 */
+  --text-primary: #f1f5f9;   /* slate-100 - light text */
+  --text-secondary: #cbd5e1; /* slate-300 - secondary light text */
+  --text-tertiary: #94a3b8;  /* slate-400 - muted light text */
+  --music-bars: #64748b;     /* slate-500 - dancing bars (more dim and grayish) */
+  --border-color: #475569;   /* slate-600 - dark borders */
+  --border-selected: #1d4ed8; /* blue-700 - selected borders in dark */
+}
+
+/* Apply variables to body */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Custom theme classes */
+.theme-bg-primary { background-color: var(--bg-primary); }
+.theme-bg-secondary { background-color: var(--bg-secondary); }
+.theme-bg-tertiary { background-color: var(--bg-tertiary); }
+.theme-bg-player { background-color: var(--bg-player); }
+.theme-bg-selected { background: var(--bg-selected); border: 1px solid var(--border-selected); }
+.theme-text-primary { color: var(--text-primary); }
+.theme-text-secondary { color: var(--text-secondary); }
+.theme-text-tertiary { color: var(--text-tertiary); }
+.theme-border { border-color: var(--border-color); }
 
 @keyframes fadeIn {
   from { opacity: 0; }
@@ -46,49 +91,17 @@
   animation-delay: 0.3s;
 }
 
-
-/*-----------------------------------*/
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+/* Music dancing bars animation */
+@keyframes musicBounce {
+  0%, 100% { 
+    height: 0.5rem; /* 8px */
+  }
+  50% { 
+    height: 1rem; /* 16px */
+  }
 }
 
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes scaleIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to { transform: scale(1); opacity: 1; }
-}
-
-.animate-fade-in {
-  animation: fadeIn 1s ease-in;
-}
-
-.animate-fade-in-delayed {
-  animation: fadeIn 1s ease-in 1s forwards;
-  opacity: 0;
-}
-
-.animate-slide-up {
-  animation: slideUp 1s ease-out;
-}
-
-.animate-scale-in {
-  animation: scaleIn 1s ease-out;
-}
-
-.delay-0 {
-  animation-delay: 0s;
-}
-
-.delay-150 {
-  animation-delay: 0.15s;
-}
-
-.delay-300 {
-  animation-delay: 0.3s;
+.music-bar {
+  background-color: var(--music-bars);
+  animation: musicBounce 0.8s ease-in-out infinite;
 }

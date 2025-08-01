@@ -30,7 +30,7 @@ const Welcome = () => {
     }, [minTimeElapsed, user, songs, navigate])
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-white to-blue-50 text-gray-400 flex flex-col items-center justify-between py-4 ">
+        <div className="min-h-screen theme-bg-primary theme-text-secondary flex flex-col items-center justify-between py-4 ">
 
             {/* APP LOGO */}
 
@@ -50,7 +50,7 @@ const Welcome = () => {
                 {/* Quote */}
 
                 <div className="my-4 animate-scale-in">
-                    <p className="text-gray-600 text-sm">Your Personal Music Haven</p>
+                    <p className="theme-text-secondary text-sm">Your Personal Music Haven</p>
                 </div>
 
                 {/* Loading Animation */}
@@ -65,8 +65,8 @@ const Welcome = () => {
             {/* Creator Credit */}
             <div className=" left-0 right-0 text-center animate-fade-in-delayed">
                 <div className="space-y-1">
-                    <p className="text-sm text-gray-600">Created by Pradhuman</p>
-                    <p className="text-xs text-gray-500">© {new Date().getFullYear()} SoundStream • All rights reserved</p>
+                    <p className="text-sm theme-text-secondary">Created by Pradhuman</p>
+                    <p className="text-xs theme-text-tertiary">© {new Date().getFullYear()} SoundStream • All rights reserved</p>
                 </div>
             </div>
 

@@ -5,15 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { setCurrentSong, togglePlayPause, fetchSongs } from '../store/musicSlice'
 import { useAudio } from '../context/AudioContext'
 
-// Define keyframes for the playing animation
-const style = document.createElement('style');
-style.textContent = `
-  @keyframes musicBounce {
-    0%, 100% { height: 8px; }
-    50% { height: 16px; }
-  }
-`;
-document.head.appendChild(style);
+// Animation is now defined in index.css - no need for inline styles
 
 const Home = () => {
   const dispatch = useDispatch()
@@ -116,7 +108,7 @@ const Home = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen theme-bg-primary">
       {/* Header */}
       <Header/>
 
@@ -140,7 +132,7 @@ const Home = () => {
               {songs.map((song, index) => (
                 <div 
                   key={index} 
-                  className={`flex items-center justify-between ${currentSong?._id === song._id ? 'bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100' : 'bg-white'} rounded-lg p-4 shadow-sm cursor-pointer hover:shadow-md transition-all group`}
+                  className={`flex items-center justify-between ${currentSong?._id === song._id ? 'theme-bg-selected' : 'theme-bg-secondary'} rounded-lg p-4 shadow-sm cursor-pointer hover:shadow-md transition-all group`}
                   onClick={() => handleSongClick(song)}
                 >
                   <div className="flex items-center flex-1">
@@ -150,24 +142,24 @@ const Home = () => {
                       className="w-12 h-12 object-cover rounded-md mr-4"
                     />
                     <div>
-                      <h3 className={`font-medium ${currentSong?._id === song._id ? 'text-gray-500' : ''}`}>{song.title}</h3>
-                      <p className="text-sm text-gray-500">{song.artist}</p>
+                      <h3 className={`font-medium ${currentSong?._id === song._id ? 'theme-text-tertiary' : 'theme-text-primary'}`}>{song.title}</h3>
+                      <p className="text-sm theme-text-tertiary">{song.artist}</p>
                     </div>
                   </div>
                   
                   {currentSong?._id === song._id && isPlaying && (
                     <div className="flex items-end h-6 space-x-0.5 ml-4">
                       <div 
-                        className="w-0.5 h-2 bg-gray-400 rounded-full"
-                        style={{ animation: 'musicBounce 0.8s ease-in-out infinite', animationDelay: '0ms' }}
+                        className="w-0.5 h-2 music-bar rounded-full"
+                        style={{ animationDelay: '0ms' }}
                       ></div>
                       <div 
-                        className="w-0.5 h-3 bg-gray-400 rounded-full"
-                        style={{ animation: 'musicBounce 0.8s ease-in-out infinite', animationDelay: '0.2s' }}
+                        className="w-0.5 h-3 music-bar rounded-full"
+                        style={{ animationDelay: '0.2s' }}
                       ></div>
                       <div 
-                        className="w-0.5 h-1.5 bg-gray-400 rounded-full"
-                        style={{ animation: 'musicBounce 0.8s ease-in-out infinite', animationDelay: '0.4s' }}
+                        className="w-0.5 h-1.5 music-bar rounded-full"
+                        style={{ animationDelay: '0.4s' }}
                       ></div>
                     </div>
                   )}
@@ -181,14 +173,14 @@ const Home = () => {
       {/* PLAYER SECTION (BOTTOM ONE WITH CONTROLS) */}
 
       {currentSong && (
-        <div className="fixed bottom-13.5 md:bottom-14 left-0 right-0 bg-indigo-100 border-t border-gray-300 py-2 px-4 rounded-t-2xl lg:rounded-t-3xl">
+        <div className="fixed bottom-13.5 md:bottom-14 left-0 right-0 bg-indigo-100 theme-bg-player theme-border border-t py-2 px-4 rounded-t-2xl lg:rounded-t-3xl">
           <div className="flex flex-col max-w-screen-xl mx-auto">
             {/* Song info and controls */}
             <div className="flex items-center mb-2">
               <img src={currentSong.poster} alt="now-playing" className="w-12 h-12 object-cover rounded-md mr-4" />
               <div className="flex-1 min-w-0">
-                <h3 className="font-medium text-gray-600 truncate max-w-[200px]">{currentSong.title}</h3>
-                <p className="text-sm text-gray-500 truncate max-w-[200px]">{currentSong.artist}</p>
+                <h3 className="font-medium theme-text-secondary truncate max-w-[200px]">{currentSong.title}</h3>
+                <p className="text-sm theme-text-tertiary truncate max-w-[200px]">{currentSong.artist}</p>
               </div>
 
               {/* Control buttons */}
@@ -197,7 +189,7 @@ const Home = () => {
                 {/* Previous Track */}
                 <button 
                   onClick={() => handleTrackChange('prev')} 
-                  className="text-gray-600 cursor-pointer hover:text-blue-400  active:text-blue-300 active:scale-90 transition-all duration-150"
+                  className="theme-text-secondary cursor-pointer hover:text-blue-400  active:text-blue-300 active:scale-90 transition-all duration-150"
                   title="Previous track"
                 >
                   <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
@@ -208,7 +200,7 @@ const Home = () => {
                 {/* Play/Pause */}
                 <button 
                   onClick={handlePlayPause}
-                  className="text-gray-600 cursor-pointer hover:text-blue-400  active:text-blue-300 active:scale-90 transition-all duration-150"
+                  className="theme-text-secondary cursor-pointer hover:text-blue-400  active:text-blue-300 active:scale-90 transition-all duration-150"
                   title={isPlaying ? "Pause" : "Play"}
                 >
                   {isPlaying ? (
@@ -227,7 +219,7 @@ const Home = () => {
                 {/* Next Track */}
                 <button 
                   onClick={() => handleTrackChange('next')} 
-                  className="text-gray-600 cursor-pointer hover:text-blue-400  active:text-blue-300 active:scale-90 transition-all duration-150"
+                  className="theme-text-secondary cursor-pointer hover:text-blue-400  active:text-blue-300 active:scale-90 transition-all duration-150"
                   title="Next track"
                 >
                   <svg className="w-6 h-6" viewBox="0 0 24 24" fill="currentColor">
@@ -238,7 +230,7 @@ const Home = () => {
             </div>
 
             {/* Progress bar */}
-            <div className="flex items-center space-x-2 text-sm text-gray-500">
+            <div className="flex items-center space-x-2 text-sm theme-text-tertiary">
               <span>{formatTime(currentTime)}</span>
               <div className="flex-1">
                 <input
