@@ -73,7 +73,7 @@ const Register = () => {
             required
             type="text"
             placeholder="Name"
-            className="w-full p-3 theme-bg-tertiary rounded-lg outline-none focus:ring-2 focus:ring-blue-400 active:scale-[0.99] transition-all shadow-sm theme-text-primary"
+            className="w-full p-3 input-gradient-light rounded-lg outline-none focus:ring-2 focus:ring-blue-400 active:scale-[0.99] transition-all shadow-sm theme-text-primary"
           />
 
           <input
@@ -84,7 +84,7 @@ const Register = () => {
             required
             type="email"
             placeholder="Email"
-            className="w-full p-3 theme-bg-tertiary rounded-lg outline-none focus:ring-2 focus:ring-blue-400 active:scale-[0.99] transition-all shadow-sm theme-text-primary"
+            className="w-full p-3 input-gradient-light rounded-lg outline-none focus:ring-2 focus:ring-blue-400 active:scale-[0.99] transition-all shadow-sm theme-text-primary"
           />
 
           <input
@@ -95,7 +95,7 @@ const Register = () => {
             required
             type="password"
             placeholder="Password"
-            className="w-full p-3 theme-bg-tertiary rounded-lg outline-none focus:ring-2 focus:ring-blue-400 active:scale-[0.99] transition-all shadow-sm theme-text-primary"
+            className="w-full p-3 input-gradient-light rounded-lg outline-none focus:ring-2 focus:ring-blue-400 active:scale-[0.99] transition-all shadow-sm theme-text-primary"
           />
 
           <button

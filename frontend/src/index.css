@@ -47,6 +47,17 @@ body {
 .theme-text-tertiary { color: var(--text-tertiary); }
 .theme-border { border-color: var(--border-color); }
 
+/* Input field gradient for light mode only */
+.input-gradient-light {
+  background: linear-gradient(135deg, #dbeafe, #e0e7ff, #c7d2fe);
+}
+
+/* Dark mode override - use normal tertiary background exactly as before */
+.dark .input-gradient-light {
+  background: var(--bg-tertiary) !important;
+  background-image: none !important;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
