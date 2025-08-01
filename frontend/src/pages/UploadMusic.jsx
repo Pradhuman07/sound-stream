@@ -94,7 +94,7 @@ const UploadMusic = () => {
               placeholder="Song Title"
               value={songTitle}
               onChange={(e) => setSongTitle(e.target.value)}
-              className="w-full p-3 theme-bg-secondary theme-text-primary placeholder-gray-500 rounded-md outline-none"
+              className="w-full p-3 theme-input-bg theme-text-primary placeholder-gray-500 rounded-md outline-none"
               required
             />
 
@@ -103,7 +103,7 @@ const UploadMusic = () => {
               placeholder="Artist Name"
               value={artistName}
               onChange={(e) => setArtistName(e.target.value)}
-              className="w-full p-3 theme-bg-secondary theme-text-primary placeholder-gray-500 rounded-md outline-none"
+              className="w-full p-3 theme-input-bg theme-text-primary placeholder-gray-500 rounded-md outline-none"
               required
             />
 
@@ -117,7 +117,7 @@ const UploadMusic = () => {
                   className="hidden"
                   required
                 />
-                <div className="w-full p-3 text-center font-medium theme-bg-secondary theme-text-secondary rounded-4xl cursor-pointer hover:opacity-80 active:opacity-60">
+                <div className="w-full p-3 text-center font-medium theme-input-bg theme-text-secondary rounded-4xl cursor-pointer hover:opacity-80 active:opacity-60">
                   Upload Audio File
                 </div>
               </label>
@@ -130,7 +130,7 @@ const UploadMusic = () => {
                   className="hidden"
                   required
                 />
-                <div className="w-full p-3 text-center font-medium theme-bg-secondary theme-text-secondary rounded-4xl cursor-pointer hover:opacity-80 active:opacity-60">
+                <div className="w-full p-3 text-center font-medium theme-input-bg theme-text-secondary rounded-4xl cursor-pointer hover:opacity-80 active:opacity-60">
                   Upload Image File
                 </div>
               </label>

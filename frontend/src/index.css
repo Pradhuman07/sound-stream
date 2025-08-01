@@ -47,6 +47,15 @@ body {
 .theme-text-tertiary { color: var(--text-tertiary); }
 .theme-border { border-color: var(--border-color); }
 
+/* Input field background - gray-200 in light mode, keeps dark theme unchanged */
+.theme-input-bg {
+  background-color: #e5e7eb; /* gray-200 for light mode */
+}
+
+.dark .theme-input-bg {
+  background-color: var(--bg-secondary); /* keeps original dark theme */
+}
+
 /* Input field gradient for light mode only */
 .input-gradient-light {
   background: linear-gradient(135deg, #dbeafe, #e0e7ff, #c7d2fe);
