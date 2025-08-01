@@ -111,6 +111,15 @@ body {
   animation-delay: 0.3s;
 }
 
+/* Security Modal overlay background */
+.modal-overlay-bg {
+  background-color: #e5e7eb; /* gray-200 for light mode */
+}
+
+.dark .modal-overlay-bg {
+  background-color: var(--bg-primary); /* keeps dark theme as before */
+}
+
 /* Music dancing bars animation */
 @keyframes musicBounce {
   0%, 100% { 
