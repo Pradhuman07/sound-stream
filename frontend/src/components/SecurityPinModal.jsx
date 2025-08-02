@@ -19,7 +19,7 @@ const SecurityPinModal = ({ isOpen, onClose, onConfirm }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 modal-overlay-bg bg-opacity-50 dark:bg-opacity-70 flex items-center justify-center z-50">
+    <div className="fixed inset-0 modal-overlay-bg bg-opacity-50 dark:bg-opacity-70 flex items-center max-sm:-mt-40 justify-center z-50">
       <div className="theme-bg-secondary p-6 rounded-lg shadow-xl max-w-md w-full mx-4">
         <h2 className="text-xl font-semibold mb-4 theme-text-primary">Security Check</h2>
         <form onSubmit={handleSubmit}>

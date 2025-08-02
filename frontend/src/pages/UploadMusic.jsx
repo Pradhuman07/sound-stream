@@ -87,7 +87,7 @@ const UploadMusic = () => {
         </div>
 
         {/* Upload Form */}
-        <div className="w-full max-w-md">
+        <div className="w-full max-w-md mt-14 md:mt-4">
           <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
             <input
               type="text"
