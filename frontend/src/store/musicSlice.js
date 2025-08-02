@@ -37,7 +37,9 @@ const initialState = {
   loading: false,
   error: null,
   currentSong: lastPlayedSong, // Initialize with last played song
-  isPlaying: false
+  isPlaying: false,
+  currentIndex: -1,
+  playlist: []
 }
 
 export const musicSlice = createSlice({
@@ -46,6 +48,11 @@ export const musicSlice = createSlice({
   reducers: {
     setCurrentSong: (state, action) => {
       state.currentSong = action.payload
+      // Update current index and playlist
+      if (action.payload && state.songs.length > 0) {
+        state.currentIndex = state.songs.findIndex(song => song._id === action.payload._id)
+        state.playlist = state.songs
+      }
       // Save to localStorage whenever current song changes
       if (action.payload) {
         localStorage.setItem('lastPlayedSong', JSON.stringify(action.payload))
@@ -54,12 +61,35 @@ export const musicSlice = createSlice({
     togglePlayPause: (state) => {
       state.isPlaying = !state.isPlaying
     },
+    setPlaying: (state, action) => {
+      state.isPlaying = action.payload
+    },
+    playNext: (state) => {
+      if (state.playlist.length > 0 && state.currentIndex < state.playlist.length - 1) {
+        state.currentIndex += 1
+        state.currentSong = state.playlist[state.currentIndex]
+        localStorage.setItem('lastPlayedSong', JSON.stringify(state.currentSong))
+      }
+    },
+    playPrevious: (state) => {
+      if (state.playlist.length > 0 && state.currentIndex > 0) {
+        state.currentIndex -= 1
+        state.currentSong = state.playlist[state.currentIndex]
+        localStorage.setItem('lastPlayedSong', JSON.stringify(state.currentSong))
+      }
+    },
+    setPlaylist: (state, action) => {
+      state.playlist = action.payload
+      state.currentIndex = 0
+    },
     resetMusicState: (state) => {
       state.currentSong = null
       state.isPlaying = false
       state.songs = []
       state.loading = false
       state.error = null
+      state.currentIndex = -1
+      state.playlist = []
       // Clear last played song from localStorage
       localStorage.removeItem('lastPlayedSong')
     },
@@ -82,5 +112,5 @@ export const musicSlice = createSlice({
   }
 })
 
-export const { setCurrentSong, togglePlayPause, resetMusicState } = musicSlice.actions
+export const { setCurrentSong, togglePlayPause, setPlaying, playNext, playPrevious, setPlaylist, resetMusicState } = musicSlice.actions
 export default musicSlice.reducer

@@ -1,15 +1,57 @@
-import React, { createContext, useContext, useRef, useState } from 'react';
+import React, { createContext, useContext, useRef, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { togglePlayPause } from '../store/musicSlice';
+import { togglePlayPause, playNext, playPrevious, setPlaying } from '../store/musicSlice';
+import { setupMediaSession, updateMediaSessionState, clearMediaSession } from '../utils/mediaSession';
+import { backgroundAudioService } from '../services/backgroundAudio';
 
 const AudioContext = createContext();
 
 export const AudioProvider = ({ children }) => {
   const dispatch = useDispatch();
-  const { currentSong, isPlaying } = useSelector(state => state.music);
+  const { currentSong, isPlaying, currentIndex, playlist } = useSelector(state => state.music);
   const audioRef = useRef(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+
+  // Initialize background audio service
+  useEffect(() => {
+    backgroundAudioService.setupAudioContext();
+    return () => {
+      clearMediaSession();
+      backgroundAudioService.destroy();
+    };
+  }, []);
+
+  // Setup media session when song changes
+  useEffect(() => {
+    if (currentSong && audioRef.current) {
+      setupMediaSession(
+        currentSong,
+        audioRef,             // Pass audio ref directly
+        isPlaying,            // Current playing state
+        (playing) => dispatch(setPlaying(playing)), // Toggle play state
+        handleNext,           // onNext
+        handlePrevious        // onPrevious
+      );
+      
+      // Enable background audio
+      backgroundAudioService.enableBackgroundAudio(audioRef.current);
+    }
+  }, [currentSong, isPlaying]); // Add isPlaying to deps
+
+  // Update media session state when play/pause changes
+  useEffect(() => {
+    updateMediaSessionState(isPlaying);
+    
+    // Sync audio element with Redux state
+    if (audioRef.current) {
+      if (isPlaying && audioRef.current.paused) {
+        audioRef.current.play().catch(console.log);
+      } else if (!isPlaying && !audioRef.current.paused) {
+        audioRef.current.pause();
+      }
+    }
+  }, [isPlaying]);
 
   // Format time in MM:SS
   const formatTime = (time) => {
@@ -35,14 +77,26 @@ export const AudioProvider = ({ children }) => {
     setCurrentTime(time);
   };
 
-  // Handle play/pause
+  // Handle play/pause from UI
   const handlePlayPause = () => {
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play();
-    }
     dispatch(togglePlayPause());
+  };
+
+  // Handle next song
+  const handleNext = () => {
+    dispatch(playNext());
+  };
+
+  // Handle previous song  
+  const handlePrevious = () => {
+    dispatch(playPrevious());
+  };
+
+  // Handle audio events for background playback
+  const handleCanPlay = () => {
+    if (isPlaying) {
+      audioRef.current.play().catch(console.log);
+    }
   };
 
   const value = {
@@ -53,9 +107,10 @@ export const AudioProvider = ({ children }) => {
     handleTimeUpdate,
     handleDurationChange,
     handleSeek,
-    handlePlayPause
+    handlePlayPause,
+    handleNext,
+    handlePrevious
   };
-
   return (
     <AudioContext.Provider value={value}>
       {children}
@@ -66,6 +121,8 @@ export const AudioProvider = ({ children }) => {
           className="hidden"
           onTimeUpdate={handleTimeUpdate}
           onDurationChange={handleDurationChange}
+          onCanPlay={handleCanPlay}
+          preload="metadata"
         />
       )}
     </AudioContext.Provider>

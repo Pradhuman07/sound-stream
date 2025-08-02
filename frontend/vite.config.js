@@ -1,11 +1,63 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
+import { VitePWA } from 'vite-plugin-pwa'
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [tailwindcss(), react()],
+  plugins: [
+    tailwindcss(), 
+    react(),
+    VitePWA({
+      registerType: 'autoUpdate',
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg,gif,webp,woff,woff2}']
+      },
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg', 'pwa-512x512-maskable.png'],
+      manifest: {
+        name: 'SoundStream',
+        short_name: 'SoundStream',
+        description: 'A modern music streaming application with offline capabilities',
+        theme_color: '#1f2937',
+        background_color: '#ffffff',
+        display: 'standalone',
+        orientation: 'portrait',
+        scope: '/',
+        start_url: '/',
+        categories: ['music', 'entertainment'],
+        shortcuts: [
+          {
+            name: 'SoundStream',
+            short_name: 'SoundStream',
+            description: 'Start playing music',
+            url: '/',
+            icons: [{ src: '/pwa-192x192.png', sizes: '192x192' }]
+          }
+        ],
+        icons: [
+          {
+            src: 'pwa-192x192.png',
+            sizes: '192x192',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-512x512.png',
+            sizes: '512x512',
+            type: 'image/png'
+          },
+          {
+            src: 'pwa-512x512-maskable.png',
+            sizes: '512x512',
+            type: 'image/png',
+            purpose: 'maskable'
+          }
+        ]
+      }
+    })
+  ],
   server: {
+    host: '0.0.0.0', // Allow external connections
+    port: 5173,
     proxy: {                                            // Proxy all /api requests to your backend server
       '/api': {
         target: 'http://localhost:3000',                // Your backend server URL
@@ -14,6 +66,10 @@ export default defineConfig({
         secure: false,                                  // Allow insecure connections in development
       }
     }
+  },
+  preview: {
+    host: '0.0.0.0', // Allow external connections for preview
+    port: 4173
   }
 })
 
