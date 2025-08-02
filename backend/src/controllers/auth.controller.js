@@ -29,10 +29,21 @@ export async function registerUser(req, res) {
 
     const token = jwt.sign({ id: user._id }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRY });  // create a JWT token with user id and secret key
 
-    res.cookie("token", token, {
+    const cookieOptions = {
         maxAge: config.COOKIE_EXPIRY,
         httpOnly: true
-    });  // set the token in a cookie with expiry
+    };
+
+    // Add production-specific cookie settings
+    if (process.env.NODE_ENV === 'production') {
+        cookieOptions.secure = true;
+        cookieOptions.sameSite = 'none';
+    } else {
+        cookieOptions.secure = false;
+        cookieOptions.sameSite = 'lax';
+    }
+
+    res.cookie("token", token, cookieOptions);  // set the token in a cookie with expiry
 
     return res.status(201).json({                       // 201 -> new resource created successfully
         message: "User registered successfully",
@@ -63,10 +74,21 @@ export async function loginUser(req, res) {
 
    const token = jwt.sign({ id: userExist._id }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRY });  // create a JWT token with user id and secret key
    
-   res.cookie("token", token, {
+   const cookieOptions = {
        maxAge: config.COOKIE_EXPIRY,
        httpOnly: true
-    });  // set the token in a cookie with expiry
+   };
+
+   // Add production-specific cookie settings
+   if (process.env.NODE_ENV === 'production') {
+       cookieOptions.secure = true;
+       cookieOptions.sameSite = 'none';
+   } else {
+       cookieOptions.secure = false;
+       cookieOptions.sameSite = 'lax';
+   }
+
+   res.cookie("token", token, cookieOptions);  // set the token in a cookie with expiry
     
     return res.status(200).json({                   // not 201
         message: "user logged in Successfully",
@@ -80,7 +102,20 @@ export async function loginUser(req, res) {
 }
 
 export async function logoutUser(req, res) {
-    res.clearCookie("token");  // This clears the token cookie
+    const cookieOptions = {
+        httpOnly: true
+    };
+
+    // Add production-specific cookie settings
+    if (process.env.NODE_ENV === 'production') {
+        cookieOptions.secure = true;
+        cookieOptions.sameSite = 'none';
+    } else {
+        cookieOptions.secure = false;
+        cookieOptions.sameSite = 'lax';
+    }
+
+    res.clearCookie("token", cookieOptions);  // This clears the token cookie with same options as when it was set
     return res.status(200).json({ message: "Logged out successfully" });
 }
 

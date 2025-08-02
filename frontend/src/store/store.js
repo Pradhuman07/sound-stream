@@ -8,3 +8,6 @@ export const store = configureStore({
     auth: authReducer
   }
 })
+
+// Make store available globally for API interceptor
+window.store = store

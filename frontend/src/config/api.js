@@ -17,8 +17,16 @@ api.interceptors.response.use(
         if (error.response?.status === 401) {
             // Clear localStorage
             localStorage.removeItem('user');
-            // Redirect to login page
-            window.location.href = '/login';
+            
+            // Dispatch logout action to Redux store if available
+            if (window.store) {
+                window.store.dispatch({ type: 'auth/logout' });
+            }
+            
+            // Only redirect if not already on login page
+            if (window.location.pathname !== '/login') {
+                window.location.href = '/login';
+            }
         }
         return Promise.reject(error);
     }
