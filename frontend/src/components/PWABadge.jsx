@@ -39,12 +39,12 @@ const PWABadge = () => {
   }, []);
 
   useEffect(() => {
-    // Show install banner after 5 seconds if app is installable and not installed
+    // Show install banner after 2 seconds if app is installable and not installed
     let timer;
     if (isInstallable && !isInstalled) {
       timer = setTimeout(() => {
         setShowInstallBanner(true);
-      }, 5000);
+      }, 2000);
     }
 
     return () => {
