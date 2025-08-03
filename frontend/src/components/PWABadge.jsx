@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
 import PWAInstallModal from './PWAInstallModal';
+import { IoMdMusicalNote } from "react-icons/io";
 
 const PWABadge = () => {
   const [needRefresh, setNeedRefresh] = useState(false);
@@ -116,9 +117,9 @@ const PWABadge = () => {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-3">
               <div className="bg-white bg-opacity-20 p-2 rounded-lg flex-shrink-0">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-white">
-                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-                </svg>
+                <div className="w-6 h-6 bg-gradient-to-r from-blue-300 to-indigo-400 transform rotate-45 transition-transform flex items-center justify-center rounded-full">
+                  <IoMdMusicalNote className="text-white transform -rotate-45" size={16} />
+                </div>
               </div>
               <div className="min-w-0 flex-1">
                 <p className="font-semibold text-sm">Install SoundStream</p>

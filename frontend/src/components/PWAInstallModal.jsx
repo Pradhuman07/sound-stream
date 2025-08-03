@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePWAInstall } from '../hooks/usePWAInstall';
+import { IoMdMusicalNote } from "react-icons/io";
 
 const PWAInstallModal = ({ isOpen, onClose }) => {
   const { install, getInstallInstructions, isInstallable, installPrompt } = usePWAInstall();
@@ -29,10 +30,8 @@ const PWAInstallModal = ({ isOpen, onClose }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white dark:bg-gray-800 rounded-lg max-w-md w-full p-6 shadow-xl">
         <div className="text-center mb-6">
-          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-purple-500 to-blue-500 rounded-full flex items-center justify-center mb-4">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="white">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
+          <div className="mx-auto w-16 h-16 bg-gradient-to-r from-blue-300 to-indigo-400 transform rotate-45 transition-transform flex items-center justify-center rounded-full mb-4">
+            <IoMdMusicalNote className="text-white transform -rotate-45" size={32} />
           </div>
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
             Install SoundStream
