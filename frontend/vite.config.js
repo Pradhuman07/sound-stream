@@ -11,9 +11,32 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg,gif,webp,woff,woff2}']
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,jpg,jpeg,gif,webp,woff,woff2}'],
+        runtimeCaching: [
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com/,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'google-fonts-stylesheets',
+            },
+          },
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-webfonts',
+              expiration: {
+                maxEntries: 30,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+              },
+            },
+          },
+        ],
       },
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'masked-icon.svg', 'pwa-512x512-maskable.png'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'pwa-512x512-maskable.png'],
+      devOptions: {
+        enabled: true // Enable PWA in development
+      },
       manifest: {
         name: 'SoundStream',
         short_name: 'SoundStream',
@@ -21,16 +44,26 @@ export default defineConfig({
         theme_color: '#1f2937',
         background_color: '#ffffff',
         display: 'standalone',
-        orientation: 'portrait',
+        orientation: 'portrait-primary',
         scope: '/',
-        start_url: '/',
+        start_url: '/?source=pwa',
         categories: ['music', 'entertainment'],
+        lang: 'en',
+        dir: 'ltr',
+        prefer_related_applications: false,
         shortcuts: [
           {
-            name: 'SoundStream',
-            short_name: 'SoundStream',
+            name: 'Play Music',
+            short_name: 'Play',
             description: 'Start playing music',
-            url: '/',
+            url: '/?shortcut=play',
+            icons: [{ src: '/pwa-192x192.png', sizes: '192x192' }]
+          },
+          {
+            name: 'Search Songs',
+            short_name: 'Search',
+            description: 'Search for songs',
+            url: '/search?shortcut=search',
             icons: [{ src: '/pwa-192x192.png', sizes: '192x192' }]
           }
         ],
@@ -38,18 +71,26 @@ export default defineConfig({
           {
             src: 'pwa-192x192.png',
             sizes: '192x192',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'any'
           },
           {
             src: 'pwa-512x512.png',
             sizes: '512x512',
-            type: 'image/png'
+            type: 'image/png',
+            purpose: 'any'
           },
           {
             src: 'pwa-512x512-maskable.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'maskable'
+          },
+          {
+            src: 'apple-touch-icon.png',
+            sizes: '180x180',
+            type: 'image/png',
+            purpose: 'any'
           }
         ]
       }

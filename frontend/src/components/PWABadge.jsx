@@ -1,11 +1,17 @@
 import { useState, useEffect } from 'react';
+import { usePWAInstall } from '../hooks/usePWAInstall';
+import PWAInstallModal from './PWAInstallModal';
 
 const PWABadge = () => {
   const [needRefresh, setNeedRefresh] = useState(false);
   const [updateSW, setUpdateSW] = useState(null);
+  const [showInstallBanner, setShowInstallBanner] = useState(false);
+  const [showInstallModal, setShowInstallModal] = useState(false);
+  
+  const { isInstallable, isInstalled, install } = usePWAInstall();
 
   useEffect(() => {
-    // Register service worker for updates only
+    // Register service worker for updates
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register('/sw.js')
         .then((registration) => {
@@ -31,6 +37,28 @@ const PWABadge = () => {
     }
   }, []);
 
+  useEffect(() => {
+    // Show install banner after 5 seconds if app is installable and not installed
+    let timer;
+    if (isInstallable && !isInstalled) {
+      timer = setTimeout(() => {
+        setShowInstallBanner(true);
+      }, 5000);
+    }
+
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [isInstallable, isInstalled]);
+
+  const handleQuickInstall = async () => {
+    const result = await install();
+    if (result.outcome === 'not-available') {
+      setShowInstallModal(true);
+    }
+    setShowInstallBanner(false);
+  };
+
   const handleUpdate = () => {
     if (updateSW) {
       updateSW();
@@ -39,15 +67,85 @@ const PWABadge = () => {
     }
   };
 
-  const close = () => {
+  const closeUpdate = () => {
     setNeedRefresh(false);
   };
 
+  const closeBanner = () => {
+    setShowInstallBanner(false);
+  };
+
+  // Don't show anything if app is already installed
+  if (isInstalled) {
+    return (
+      <div className="pwa-toast">
+        {/* Update Available Toast */}
+        {needRefresh && (
+          <div className="fixed bottom-4 right-4 bg-blue-600 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm">
+            <div className="flex items-center justify-between">
+              <div>
+                <p className="font-semibold">New content available!</p>
+                <p className="text-sm opacity-90">Click reload to update</p>
+              </div>
+              <div className="flex gap-2 ml-4">
+                <button
+                  className="bg-white text-blue-600 px-3 py-1 rounded text-sm font-medium hover:bg-gray-100"
+                  onClick={handleUpdate}
+                >
+                  Reload
+                </button>
+                <button
+                  className="text-white hover:text-gray-200"
+                  onClick={closeUpdate}
+                >
+                  ×
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+
   return (
     <div className="pwa-toast">
+      {/* Install App Banner */}
+      {showInstallBanner && isInstallable && (
+        <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-sm bg-gradient-to-r from-purple-600 to-blue-600 text-white p-4 rounded-lg shadow-lg z-40">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="bg-white bg-opacity-20 p-2 rounded-lg flex-shrink-0">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-white">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                </svg>
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="font-semibold text-sm">Install SoundStream</p>
+                <p className="text-xs opacity-90">Get the full app experience</p>
+              </div>
+            </div>
+            <div className="flex gap-2 ml-4 flex-shrink-0">
+              <button
+                className="bg-white text-purple-600 px-3 py-1 rounded text-sm font-medium hover:bg-gray-100 transition-colors"
+                onClick={handleQuickInstall}
+              >
+                Install
+              </button>
+              <button
+                className="text-white hover:text-gray-200 p-1 text-lg leading-none"
+                onClick={closeBanner}
+              >
+                ×
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Update Available Toast */}
       {needRefresh && (
-        <div className="fixed bottom-4 right-4 bg-blue-600 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm">
+        <div className={`fixed right-4 bg-blue-600 text-white p-4 rounded-lg shadow-lg z-50 max-w-sm ${showInstallBanner ? 'bottom-24' : 'bottom-4'}`}>
           <div className="flex items-center justify-between">
             <div>
               <p className="font-semibold">New content available!</p>
@@ -62,7 +160,7 @@ const PWABadge = () => {
               </button>
               <button
                 className="text-white hover:text-gray-200"
-                onClick={close}
+                onClick={closeUpdate}
               >
                 ×
               </button>
@@ -70,6 +168,12 @@ const PWABadge = () => {
           </div>
         </div>
       )}
+
+      {/* Install Modal */}
+      <PWAInstallModal 
+        isOpen={showInstallModal} 
+        onClose={() => setShowInstallModal(false)} 
+      />
     </div>
   );
 };
