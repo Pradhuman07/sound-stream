@@ -13,6 +13,7 @@ export const useTheme = () => {
 export const ThemeProvider = ({ children }) => {
   const [isDark, setIsDark] = useState(false) // Start with default value
   const [isInitialized, setIsInitialized] = useState(false)
+  const [isTransitioning, setIsTransitioning] = useState(false)
 
   // Initialize theme from localStorage on component mount
   useEffect(() => {
@@ -41,6 +42,11 @@ export const ThemeProvider = ({ children }) => {
 
     const htmlElement = document.documentElement
     
+    // Add a transitioning class for enhanced visual feedback
+    if (isTransitioning) {
+      document.body.style.transition = 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+    }
+    
     if (isDark) {
       htmlElement.classList.add('dark')
     } else {
@@ -56,13 +62,20 @@ export const ThemeProvider = ({ children }) => {
   }, [isDark, isInitialized])
 
   const toggleTheme = () => {
+    setIsTransitioning(true)
     setIsDark(prev => !prev)
+    
+    // Reset transitioning state after animation completes
+    setTimeout(() => {
+      setIsTransitioning(false)
+    }, 300)
   }
 
   const value = {
     isDark,
     toggleTheme,
-    isInitialized
+    isInitialized,
+    isTransitioning
   }
 
   return (

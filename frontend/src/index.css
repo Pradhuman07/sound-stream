@@ -29,23 +29,66 @@
   --border-selected: #1d4ed8; /* blue-700 - selected borders in dark */
 }
 
+/* Global smooth transitions for theme changes */
+* {
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Enhanced transitions for specific elements */
+html {
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* Apply variables to body */
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Custom theme classes */
-.theme-bg-primary { background-color: var(--bg-primary); }
-.theme-bg-secondary { background-color: var(--bg-secondary); }
-.theme-bg-tertiary { background-color: var(--bg-tertiary); }
-.theme-bg-player { background-color: var(--bg-player); }
-.theme-bg-selected { background: var(--bg-selected); border: 1px solid var(--border-selected); }
-.theme-text-primary { color: var(--text-primary); }
-.theme-text-secondary { color: var(--text-secondary); }
-.theme-text-tertiary { color: var(--text-tertiary); }
-.theme-border { border-color: var(--border-color); }
+/* Custom theme classes with smooth transitions */
+.theme-bg-primary { 
+  background-color: var(--bg-primary); 
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.theme-bg-secondary { 
+  background-color: var(--bg-secondary); 
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.theme-bg-tertiary { 
+  background-color: var(--bg-tertiary); 
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.theme-bg-player { 
+  background-color: var(--bg-player); 
+  transition: background-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.theme-bg-selected { 
+  background: var(--bg-selected); 
+  border: 1px solid var(--border-selected); 
+  transition: background 0.3s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.theme-text-primary { 
+  color: var(--text-primary); 
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.theme-text-secondary { 
+  color: var(--text-secondary); 
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.theme-text-tertiary { 
+  color: var(--text-tertiary); 
+  transition: color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.theme-border { 
+  border-color: var(--border-color); 
+  transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
 /* Input field background - gray-200 in light mode, keeps dark theme unchanged */
 .theme-input-bg {
@@ -82,6 +125,16 @@ body {
   to { transform: scale(1); opacity: 1; }
 }
 
+@keyframes rotateIn {
+  from { transform: rotate(-180deg) scale(0.5); opacity: 0; }
+  to { transform: rotate(0deg) scale(1); opacity: 1; }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
 .animate-fade-in {
   animation: fadeIn 1s ease-in;
 }
@@ -97,6 +150,23 @@ body {
 
 .animate-scale-in {
   animation: scaleIn 1s ease-out;
+}
+
+.animate-rotate-in {
+  animation: rotateIn 0.4s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 0.3s ease-in-out;
+}
+
+/* Theme toggle animations */
+.theme-icon-enter {
+  animation: rotateIn 0.4s ease-out;
+}
+
+.theme-toggle-active {
+  animation: pulse 0.3s ease-in-out;
 }
 
 .delay-0 {
