@@ -12,10 +12,12 @@ const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const submitHandler = async (e) => {
     e.preventDefault()
     setError('')
+    setIsLoading(true)
     dispatch(authStart())
 
     try {
@@ -34,6 +36,8 @@ const Login = () => {
       setError(errorMessage)
       dispatch(authFailure(errorMessage))
       setPassword('') // Clear password on error
+    } finally {
+      setIsLoading(false)
     }
   }
 
@@ -78,9 +82,21 @@ const Login = () => {
 
           <button
             type="submit"
-            className="w-full p-3 text-white bg-gradient-to-r from-blue-400 to-indigo-300 rounded-lg hover:from-blue-500 hover:to-indigo-600 active:scale-95 cursor-pointer transition-all shadow-md"
+            disabled={isLoading}
+            className={`w-full p-3 text-white rounded-lg transition-all shadow-md flex items-center justify-center gap-2 ${
+              isLoading 
+                ? 'bg-gradient-to-r from-gray-400 to-gray-500 cursor-not-allowed' 
+                : 'bg-gradient-to-r from-blue-400 to-indigo-300 hover:from-blue-500 hover:to-indigo-600 active:scale-95 cursor-pointer'
+            }`}
           >
-            Log In
+            {isLoading ? (
+              <>
+                <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
+                Logging In...
+              </>
+            ) : (
+              'Log In'
+            )}
           </button>
 
         </form>

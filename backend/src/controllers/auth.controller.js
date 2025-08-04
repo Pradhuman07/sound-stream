@@ -63,13 +63,13 @@ export async function loginUser(req, res) {
     const userExist = await findUser({ email: email });     // userExist = either {} or null
 
     if (!userExist) {                                          // !null = true , !{} = false 
-        return res.status(400).json({ message: "Invalid email or password" })
+        return res.status(400).json({ message: "User not found. Please register first." })
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, userExist.password);      //password->jo aaya(usko hash krega bcrypt) , userExist->jo database me h(hashed form me)   // returns true/false  // await is must, wrna it will be true always
 
     if (!isPasswordCorrect) {
-        return res.status(400).json({ message: "Invalid email or password" })
+        return res.status(400).json({ message: "Invalid password" })
     }
 
    const token = jwt.sign({ id: userExist._id }, config.JWT_SECRET, { expiresIn: config.JWT_EXPIRY });  // create a JWT token with user id and secret key
